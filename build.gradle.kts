@@ -22,6 +22,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
     // BCrypt
     implementation("com.ToxicBakery.library.bcrypt:bcrypt:1.0.9")
+    //Koin
+    implementation("io.insert-koin:koin-core:$3.2.0")
 }
 
 tasks.test {
