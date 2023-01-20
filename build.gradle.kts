@@ -20,6 +20,8 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
     implementation("ch.qos.logback:logback-classic:1.4.4")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+    // BCrypt
+    implementation("com.ToxicBakery.library.bcrypt:bcrypt:1.0.9")
 }
 
 tasks.test {
