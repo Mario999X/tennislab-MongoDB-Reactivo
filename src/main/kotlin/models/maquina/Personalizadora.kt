@@ -6,12 +6,11 @@ import java.util.*
 class Personalizadora(
     id: Id<Maquina>,
     uuid: UUID = UUID.randomUUID(),
-    marca: String,
-    modelo: String,
+    descripcion: String,
     fechaAdquisicion: String,
     numSerie: Long,
     var manioabrilidad: Boolean,
     var balance: Boolean,
     var rigidez: Boolean
     // TURNO?
-) : Maquina(id, uuid, marca, modelo, fechaAdquisicion, numSerie)
+) : Maquina(id, uuid, descripcion, fechaAdquisicion, numSerie)

@@ -14,6 +14,5 @@ class Raqueta(
     val id: Id<Raqueta> = newId(),
     @Contextual
     val uuid: UUID = UUID.randomUUID(),
-    var marca: String,
-    var modelo: String
+    val descripcion: String, // marca + modelo
 )
