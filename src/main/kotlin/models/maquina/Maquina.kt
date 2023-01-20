@@ -12,8 +12,7 @@ open class Maquina(
     val id: Id<Maquina>,
     @Contextual
     val uuid: UUID,
-    var marca: String,
-    var modelo: String,
+    val descripcion: String, // marca + modelo
     var fechaAdquisicion: String,
     var numSerie: Long
 )
