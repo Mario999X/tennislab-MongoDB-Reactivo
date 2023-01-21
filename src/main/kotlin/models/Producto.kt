@@ -17,6 +17,12 @@ class Producto(
     val descripcion: String, // marca + modelo
     val stock: Int,
     val precio: Double
-)
+) {
+    override fun toString(): String {
+        return "Producto(id=$id, uuid=$uuid, tipo=$tipo, descripcion='$descripcion', stock=$stock, precio=$precio)"
+    }
+}
 
 enum class Tipo { RAQUETA, CORDAJE, COMPLEMENTO }
+
+
