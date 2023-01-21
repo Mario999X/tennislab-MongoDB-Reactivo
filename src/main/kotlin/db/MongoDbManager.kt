@@ -12,21 +12,24 @@ object MongoDbManager {
     private var mongoClient: CoroutineClient
     lateinit var database: CoroutineDatabase
 
-    private const val MONGO_TYPE = "mongodb://"
-    private const val HOST = "localhost"
+    private const val MONGO_TYPE = "mongodb+srv://"
+    private const val HOST = "dam.ahgscx9.mongodb.net"
     private const val PORT = 27017
-    private const val DATABASE = "test"
-    private const val OPTIONS = "?retryWrites=true&w=majority"
+    private const val DATABASE = "tennisLab"
+    private const val USERNAME = "tennisLab"
+    private const val PASSWORD = "mongoreactivo"
+    private const val OPTIONS = "?authSource=admin&retryWrites=true&w=majority"
 
-    private const val MONGO_URI = "$MONGO_TYPE$HOST/$DATABASE"
+    private const val MONGO_URI =
+        "$MONGO_TYPE$USERNAME:$PASSWORD@$HOST/$DATABASE"
 
     init {
-        log.debug("Inicializando conexion a MongoDB")
+        log.debug("Inicializando conexión a MongoDB")
 
-        println("Inicializando conexion a MongoDB -> $MONGO_URI$OPTIONS")
+        println("Inicializando conexión a MongoDB -> $MONGO_URI$OPTIONS")
         mongoClient =
             KMongo.createClient("$MONGO_URI$OPTIONS")
                 .coroutine
-        database = mongoClient.getDatabase("test")
+        database = mongoClient.getDatabase("tennisLab")
     }
 }

@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-
 plugins {
     kotlin("jvm") version "1.7.21"
     // Para ktorfit que usa KSP
@@ -11,7 +10,6 @@ plugins {
 
 group = "mario.sebastian"
 version = "1.0-SNAPSHOT"
-
 
 repositories {
     mavenCentral()
@@ -27,6 +25,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
     // BCrypt
     implementation("com.ToxicBakery.library.bcrypt:bcrypt:1.0.9")
+    implementation("io.insert-koin:koin-core:3.2.2")
+    implementation("io.insert-koin:koin-annotations:1.0.3")
+    ksp("io.insert-koin:koin-ksp-compiler:1.0.3")
     // KtorFit
     ksp("de.jensklingenberg.ktorfit:ktorfit-ksp:1.0.0-beta16")
     implementation("de.jensklingenberg.ktorfit:ktorfit-lib:1.0.0-beta16")
