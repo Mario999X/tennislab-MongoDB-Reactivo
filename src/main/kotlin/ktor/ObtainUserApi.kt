@@ -7,13 +7,14 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import models.Usuario
+import service.cache.UsuariosCache
 
 
 fun main(args: Array<String>): Unit = runBlocking {
 
-    val repository = RepositoryApiUsers()
+    val repository = RepositoryApiUsers(UsuariosCache())
 
-    // "Cache"
+    // "Mapa normal"
     val mapa = mutableMapOf<Int, Usuario>()
 
     val select = launch {
