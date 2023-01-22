@@ -36,6 +36,9 @@ dependencies {
     implementation("io.ktor:ktor-client-serialization:2.1.3")
     implementation("io.ktor:ktor-client-content-negotiation:2.1.3")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.1.3")
+
+    // Cache
+    implementation("io.github.reactivecircus.cache4k:cache4k:0.9.0")
 }
 
 tasks.test {
