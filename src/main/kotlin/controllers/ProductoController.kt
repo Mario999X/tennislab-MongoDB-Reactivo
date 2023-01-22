@@ -9,7 +9,7 @@ import mu.KotlinLogging
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
-import repositories.ProductosRepository
+import repositories.producto.ProductosRepository
 import service.ProductoService
 
 private val logger = KotlinLogging.logger { }

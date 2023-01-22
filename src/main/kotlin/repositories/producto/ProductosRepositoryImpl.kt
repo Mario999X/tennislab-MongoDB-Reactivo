@@ -1,4 +1,4 @@
-package repositories
+package repositories.producto
 
 import db.MongoDbManager
 import kotlinx.coroutines.flow.Flow

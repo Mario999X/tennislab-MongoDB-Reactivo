@@ -14,8 +14,12 @@ class Adquisicion(
     @Contextual
     val uuid: UUID = UUID.randomUUID(),
     var cantidad: Int,
-    // Producto?
+    val producto: Producto
 // Precio?
 
 // Tarea?
-)
+){
+    override fun toString(): String {
+        return "Adquisicion(id=$id, uuid=$uuid, cantidad=$cantidad, producto=${producto.tipo})"
+    }
+}
