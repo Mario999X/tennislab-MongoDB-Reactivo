@@ -12,8 +12,7 @@ data class UsuarioDto(
     val id: String,
     var name: String,
     var email: String,
-) {
-}
+)
 
 fun UsuarioDto.toUsuario(pass: String): Usuario {
     return Usuario(

@@ -1,3 +1,4 @@
+import di.DiModule
 import di.myModule
 import mu.KotlinLogging
 import org.koin.core.context.startKoin
@@ -5,7 +6,10 @@ import org.koin.core.context.startKoin
 private val logger = KotlinLogging.logger { }
 fun main() {
     startKoin {
-        modules(myModule)
+        printLogger()
+        modules(
+            DiModule().run { myModule }
+        )
     }
     AppMongo().run()
 }

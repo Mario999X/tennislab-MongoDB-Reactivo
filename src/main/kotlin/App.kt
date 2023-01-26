@@ -9,10 +9,7 @@ import models.Adquisicion
 import models.Producto
 import mu.KotlinLogging
 import org.koin.core.component.KoinComponent
-import repositories.adquisicion.AdquisicionRepositoryImpl
-import repositories.producto.ProductosRepositoryImpl
-import service.AdquisicionService
-import service.ProductoService
+import org.koin.core.component.inject
 
 private val logger = KotlinLogging.logger { }
 
@@ -25,8 +22,8 @@ class AppMongo : KoinComponent {
         limpiar.join()
 
         //Controladores
-        val productoController = ProductoController(ProductosRepositoryImpl(), ProductoService())
-        val adquisicionController = AdquisicionController(AdquisicionRepositoryImpl(), AdquisicionService())
+        val productoController: ProductoController by inject()
+        val adquisicionController: AdquisicionController by inject()
 
         //Listas
         val productosList = mutableListOf<Producto>()

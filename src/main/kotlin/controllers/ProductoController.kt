@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import models.Producto
 import mu.KotlinLogging
-import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
 import repositories.producto.ProductosRepository
@@ -15,9 +14,8 @@ import service.ProductoService
 private val logger = KotlinLogging.logger { }
 
 @Single
-@Named("productoController")
 class ProductoController(
-    @Named("Productosrepository") private val productosRepository: ProductosRepository,
+    private val productosRepository: ProductosRepository,
     private val productoService: ProductoService
 ) {
     suspend fun getProductos(): Flow<Producto> {

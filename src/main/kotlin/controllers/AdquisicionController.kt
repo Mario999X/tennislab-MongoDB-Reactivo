@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import models.Adquisicion
 import mu.KotlinLogging
-import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
 import repositories.adquisicion.AdquisicionRepository
@@ -15,9 +14,8 @@ import service.AdquisicionService
 private val logger = KotlinLogging.logger { }
 
 @Single
-@Named("AdquisicionController")
 class AdquisicionController(
-    @Named("AdquisicionRepository") private val adquisicionRepository: AdquisicionRepository,
+     private val adquisicionRepository: AdquisicionRepository,
     private val adquisicionService: AdquisicionService
 ) {
     suspend fun getAdquisiciones(): Flow<Adquisicion> {

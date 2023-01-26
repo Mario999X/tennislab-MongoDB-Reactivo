@@ -5,14 +5,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
 import models.Producto
 import mu.KotlinLogging
-import org.koin.core.annotation.Named
-import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
 
 private val logger = KotlinLogging.logger { }
 
-@Single
-@Named("ProductosRepository")
 class ProductosRepositoryImpl : ProductosRepository {
     override fun findAll(): Flow<Producto> {
         logger.debug { "findAll()" }
@@ -24,7 +20,7 @@ class ProductosRepositoryImpl : ProductosRepository {
         return MongoDbManager.database.getCollection<Producto>().findOneById(id)
     }
 
-    override suspend fun save(entity: Producto): Producto? {
+    override suspend fun save(entity: Producto): Producto {
         logger.debug { "save($entity) - creando" }
         return MongoDbManager.database.getCollection<Producto>().save(entity).let { entity }
     }
