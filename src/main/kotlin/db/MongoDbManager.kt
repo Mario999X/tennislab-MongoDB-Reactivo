@@ -16,11 +16,10 @@ private val log = KotlinLogging.logger { }
  */
 object MongoDbManager {
     private var mongoClient: CoroutineClient
-    lateinit var database: CoroutineDatabase
+    var database: CoroutineDatabase
 
     private const val MONGO_TYPE = "mongodb+srv://"
     private const val HOST = "dam.ahgscx9.mongodb.net"
-    private const val PORT = 27017
     private const val DATABASE = "tennisLab"
     private const val USERNAME = "tennisLab"
     private const val PASSWORD = "mongoreactivo"
