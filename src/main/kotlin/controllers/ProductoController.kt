@@ -1,5 +1,9 @@
 package controllers
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
+
 import com.mongodb.reactivestreams.client.ChangeStreamPublisher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -13,6 +17,11 @@ import service.ProductoService
 
 private val logger = KotlinLogging.logger { }
 
+/**
+ * Controlador al que se le pasa un repositorio y un servicio, el cual contiene el CRUD para los productos
+ * @param productosRepository
+ * @param productoService
+ */
 @Single
 class ProductoController(
     private val productosRepository: ProductosRepository,

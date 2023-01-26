@@ -1,5 +1,8 @@
 package controllers
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import com.mongodb.reactivestreams.client.ChangeStreamPublisher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -13,9 +16,14 @@ import service.AdquisicionService
 
 private val logger = KotlinLogging.logger { }
 
+/**
+ * Controlador al que se le pasa un repositorio y un servicio, el cual contiene el CRUD para las adquisiciones
+ * @param adquisicionRepository
+ * @param adquisicionService
+ */
 @Single
 class AdquisicionController(
-     private val adquisicionRepository: AdquisicionRepository,
+    private val adquisicionRepository: AdquisicionRepository,
     private val adquisicionService: AdquisicionService
 ) {
     suspend fun getAdquisiciones(): Flow<Adquisicion> {

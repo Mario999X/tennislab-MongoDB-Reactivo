@@ -1,5 +1,8 @@
 package db
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import mu.KotlinLogging
 import org.litote.kmongo.coroutine.CoroutineClient
 import org.litote.kmongo.coroutine.CoroutineDatabase
@@ -8,6 +11,9 @@ import org.litote.kmongo.reactivestreams.KMongo
 
 private val log = KotlinLogging.logger { }
 
+/**
+ * Clase Object que maneja la conexión a MongoDB, siendo en este caso a Mongo Atlas
+ */
 object MongoDbManager {
     private var mongoClient: CoroutineClient
     lateinit var database: CoroutineDatabase
