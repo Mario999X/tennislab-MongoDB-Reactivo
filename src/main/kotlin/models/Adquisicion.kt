@@ -18,8 +18,8 @@ class Adquisicion(
 // Precio?
 
 // Tarea?
-){
+) {
     override fun toString(): String {
-        return "Adquisicion(id=$id, uuid=$uuid, cantidad=$cantidad, producto=${producto.tipo})"
+        return "Adquisicion(id=$id, uuid=$uuid, cantidad=$cantidad, producto=$producto)"
     }
 }

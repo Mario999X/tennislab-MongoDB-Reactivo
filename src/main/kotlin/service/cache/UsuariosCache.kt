@@ -9,10 +9,9 @@ import kotlin.time.Duration.Companion.minutes
 @Single
 class UsuariosCache {
 
-    private val hasRefreshAllCacheJob: Boolean = true // Si queremos que se refresque
     val refreshTime = 60000 // 1 minuto
 
     val cache = Cache.Builder()
-        .expireAfterAccess(1.minutes)
+        .expireAfterAccess(5.minutes)
         .build<UUID, Usuario>()
 }
