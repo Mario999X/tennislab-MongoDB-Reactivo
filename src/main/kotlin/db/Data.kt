@@ -45,3 +45,4 @@ fun getPersonalizaciones() = listOf(
         informacionPersonalizacion = "ADIOS"
     )
 )
+
