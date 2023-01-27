@@ -24,7 +24,7 @@ class ProductosRepositoryImpl : ProductosRepository {
         return MongoDbManager.database.getCollection<Producto>().findOneById(id)
     }
 
-    override suspend fun save(entity: Producto): Producto? {
+    override suspend fun save(entity: Producto): Producto {
         logger.debug { "save($entity) - creando" }
         return MongoDbManager.database.getCollection<Producto>().save(entity).let { entity }
     }

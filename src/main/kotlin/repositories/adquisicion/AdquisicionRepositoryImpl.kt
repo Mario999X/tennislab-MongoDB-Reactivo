@@ -24,7 +24,7 @@ class AdquisicionRepositoryImpl : AdquisicionRepository {
         return MongoDbManager.database.getCollection<Adquisicion>().findOneById(id)
     }
 
-    override suspend fun save(entity: Adquisicion): Adquisicion? {
+    override suspend fun save(entity: Adquisicion): Adquisicion {
         logger.debug { "save($entity) - creando" }
         return MongoDbManager.database.getCollection<Adquisicion>().save(entity).let { entity }
     }
