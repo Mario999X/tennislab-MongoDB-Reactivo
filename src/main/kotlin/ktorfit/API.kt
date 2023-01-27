@@ -1,7 +1,6 @@
 package ktorfit
 
 import controllers.APIController
-import controllers.TareaController
 import db.MongoDbManager
 import db.getAdquisicionInit
 import db.getPersonalizaciones
@@ -23,7 +22,6 @@ class KtorFitApp : KoinComponent {
         limpiar.join()
 
         val apiController: APIController by inject()
-        val tareaController: TareaController by inject()
 
         val listadoUsers = apiController.getAllUsuariosApi().toList().toMutableList()
         listadoUsers[9].perfil = Perfil.ENCORDADOR
@@ -39,7 +37,7 @@ class KtorFitApp : KoinComponent {
             personalizar = getPersonalizaciones()[1]
         )
         apiController.uploadTarea(tarea)
-        tareaController.createTarea(tarea)
+        apiController.saveTarea(tarea)
     }
 
     private suspend fun limpiarDatos() {

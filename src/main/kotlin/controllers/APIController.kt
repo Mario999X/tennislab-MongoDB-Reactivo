@@ -45,4 +45,10 @@ class APIController(
             tareasKtorFitRepository.uploadTarea(entity)
         }
     }
+
+    suspend fun saveTarea(entity: Tarea) = withContext(Dispatchers.IO) {
+        launch {
+            tareasKtorFitRepository.save(entity)
+        }
+    }
 }
