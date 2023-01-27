@@ -1,8 +1,6 @@
 package db
 
-import models.Adquisicion
-import models.Producto
-import models.Tipo
+import models.*
 
 fun getProductoInit() = listOf(
     Producto(
@@ -28,4 +26,22 @@ fun getAdquisicionInit() = listOf(
         cantidad = 1,
         producto = getProductoInit()[1],
     ),
+)
+
+fun getEncordaciones() = listOf(
+    Encordar(
+        informacionEndordado = "HOLA"
+    ),
+    Encordar(
+        informacionEndordado = "ADIOS"
+    )
+)
+
+fun getPersonalizaciones() = listOf(
+    Personalizar(
+        informacionPersonalizacion = "HOLA"
+    ),
+    Personalizar(
+        informacionPersonalizacion = "ADIOS"
+    )
 )

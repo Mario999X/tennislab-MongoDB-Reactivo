@@ -16,4 +16,8 @@ class Personalizar(
     var informacionPersonalizacion: String, // Igual que en Encordar
     val precio: Double = 60.0
 // Tarea
-)
+) {
+    override fun toString(): String {
+        return "Personalizar(id=$id, uuid=$uuid, informacionPersonalizacion='$informacionPersonalizacion', precio=$precio)"
+    }
+}

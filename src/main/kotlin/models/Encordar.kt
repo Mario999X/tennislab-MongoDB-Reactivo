@@ -16,4 +16,8 @@ class Encordar(
     var informacionEndordado: String, // Aqui ponemos el texto que haga falta
     val precio: Double = 15.0 // Necesitamos el precio individual
 // Tarea
-)
+) {
+    override fun toString(): String {
+        return "Encordar(id=$id, uuid=$uuid, informacionEndordado='$informacionEndordado', precio=$precio)"
+    }
+}

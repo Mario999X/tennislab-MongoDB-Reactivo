@@ -1,13 +1,11 @@
 package ktor
 
-
 import controllers.APIController
 import db.MongoDbManager
 import db.getAdquisicionInit
 import kotlinx.coroutines.runBlocking
 import models.Usuario
 import service.cache.UsuariosCache
-
 
 fun main(args: Array<String>): Unit = runBlocking {
 
