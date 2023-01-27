@@ -54,4 +54,5 @@ val myModule = module {
             get(named("TareasKtorFit"))
         )
     }
+    single { TareaController(get(named("TareaRepository"))) }
 }

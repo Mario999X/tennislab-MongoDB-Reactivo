@@ -15,7 +15,7 @@ class Usuario(
     var name: String,
     var email: String,
     val password: ByteArray,
-    val perfil: Perfil
+    var perfil: Perfil
 ) {
     override fun toString(): String {
         return "Usuario(id=$id, uuid=$uuid, name='$name', email='$email', password=$password, perfil=$perfil)"

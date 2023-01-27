@@ -11,7 +11,7 @@ import repositories.tarea.TareasKtorFitRepository
 import repositories.usuario.UsuariosCacheRepositoryImpl
 import repositories.usuario.UsuariosKtorFitRepositoryImpl
 import repositories.usuario.UsuariosMongoRepositoryImpl
-import models.Adquisicion
+import models.Tarea
 import models.Usuario
 import org.koin.core.annotation.Single
 
@@ -40,9 +40,9 @@ class APIController(
         joinAll()
     }
 
-    suspend fun uploadAdquisicion(entity: Adquisicion) = withContext(Dispatchers.IO) {
+    suspend fun uploadTarea(entity: Tarea) = withContext(Dispatchers.IO) {
         launch {
-            tareasKtorFitRepository.uploadAdquisicion(entity)
+            tareasKtorFitRepository.uploadTarea(entity)
         }
     }
 }
