@@ -1,11 +1,12 @@
-package ktor
+package repositories.usuario
 
 import dto.UsuarioDto
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
+import ktorfit.KtorFitClient
 
-class UsuariosKtorFitRepository {
+class UsuariosKtorFitRepositoryImpl {
     // Inyectar dependencia
     private val client by lazy { KtorFitClient.instance }
 

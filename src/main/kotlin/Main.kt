@@ -1,9 +1,8 @@
 import di.DiModule
 import di.myModule
-import mu.KotlinLogging
+import ktorfit.KtorFitApp
 import org.koin.core.context.startKoin
 
-private val logger = KotlinLogging.logger { }
 fun main() {
     startKoin {
         printLogger()
@@ -11,6 +10,7 @@ fun main() {
             DiModule().run { myModule }
         )
     }
+    KtorFitApp().run()
     AppMongo().run()
 }
 

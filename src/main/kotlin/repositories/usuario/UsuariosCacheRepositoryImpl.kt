@@ -1,17 +1,15 @@
-package ktor
+package repositories.usuario
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import models.Usuario
-import repositories.CrudRepository
 import service.cache.UsuariosCache
-import java.util.UUID
+import java.util.*
 
-class UsuariosCacheRepository(
-    private val cacheUsuarios: UsuariosCache
-) : CrudRepository<Usuario, UUID> {
+class UsuariosCacheRepositoryImpl : UsuarioRepository {
 
+    private val cacheUsuarios = UsuariosCache()
     private var refreshJob: Job? = null
 
     private var listaBusquedas = mutableListOf<Usuario>()

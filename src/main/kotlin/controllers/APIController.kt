@@ -7,33 +7,35 @@ import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ktor.TareasKtorFitRepository
-import ktor.UsuariosCacheRepository
-import ktor.UsuariosKtorFitRepository
-import ktor.UsuariosMongoRepository
+import repositories.tarea.TareasKtorFitRepository
+import repositories.usuario.UsuariosCacheRepositoryImpl
+import repositories.usuario.UsuariosKtorFitRepositoryImpl
+import repositories.usuario.UsuariosMongoRepositoryImpl
 import models.Adquisicion
 import models.Usuario
+import org.koin.core.annotation.Single
 
+@Single
 class APIController(
-    private val usuariosCacheRepository: UsuariosCacheRepository,
-    private val usuariosMongoRepository: UsuariosMongoRepository,
-    private val usuariosKtorFitRepository: UsuariosKtorFitRepository,
+    private val usuariosCacheRepositoryImpl: UsuariosCacheRepositoryImpl,
+    private val usuariosMongoRepositoryImpl: UsuariosMongoRepositoryImpl,
+    private val usuariosKtorFitRepositoryImpl: UsuariosKtorFitRepositoryImpl,
     private val tareasKtorFitRepository: TareasKtorFitRepository
 ) {
 
     suspend fun getAllUsuariosApi(): Flow<Usuario> = withContext(Dispatchers.IO) {
         val listado = mutableListOf<Usuario>()
-        usuariosKtorFitRepository.findAll().collect { listado.add(it.toUsuario("Hola1")) }
+        usuariosKtorFitRepositoryImpl.findAll().collect { listado.add(it.toUsuario("Hola1")) }
         return@withContext listado.asFlow()
     }
 
     suspend fun saveUsuarios(entity: Usuario) = withContext(Dispatchers.IO) {
         launch {
-            usuariosCacheRepository.save(entity)
+            usuariosCacheRepositoryImpl.save(entity)
         }
 
         launch {
-            usuariosMongoRepository.save(entity)
+            usuariosMongoRepositoryImpl.save(entity)
         }
         joinAll()
     }

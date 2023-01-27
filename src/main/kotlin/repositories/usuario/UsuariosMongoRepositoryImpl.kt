@@ -1,12 +1,11 @@
-package ktor
+package repositories.usuario
 
 import db.MongoDbManager
 import kotlinx.coroutines.flow.Flow
 import models.Usuario
-import repositories.CrudRepository
-import java.util.UUID
+import java.util.*
 
-class UsuariosMongoRepository : CrudRepository<Usuario, UUID> {
+class UsuariosMongoRepositoryImpl : UsuarioRepository {
 
     override fun findAll(): Flow<Usuario> {
         println("\tfindAllMongo")
