@@ -22,6 +22,7 @@ class TareasKtorFitRepository : TareaRepository {
         println("\tuploadAdquisicion")
 
         client.createTarea(entity.toTareaDto())
+
         return@withContext entity
     }
 

@@ -26,13 +26,13 @@ class AppMongo : KoinComponent {
         //Controladores
         val productoController: ProductoController by inject()
         val adquisicionController: AdquisicionController by inject()
-        val encordacionesController: EncordarController by inject()
-        val personalizacionesController: PersonalizarController by inject()
+        val encordarController: EncordarController by inject()
+        val personalizarController: PersonalizarController by inject()
 
         //Listas
         val productosList = mutableListOf<Producto>()
         val adquisicionList = mutableListOf<Adquisicion>()
-        val encordacionesList = mutableListOf<Encordar>()
+        val encordadosList = mutableListOf<Encordar>()
         val personalizacionesList = mutableListOf<Personalizar>()
 
         //Escuchadores
@@ -71,26 +71,26 @@ class AppMongo : KoinComponent {
                 println(adquisicion)
             }
 
-            //Encordaciones
+            //Encordados
             val encordacionesInit = getEncordaciones()
             encordacionesInit.forEach { encordacion ->
-                encordacionesController.createEncordacion(encordacion)
+                encordarController.createEncordacion(encordacion)
             }
-            encordacionesList.clear()
-            encordacionesController.getEncordaciones().collect { encordacion ->
-                encordacionesList.add(encordacion)
+            encordadosList.clear()
+            encordarController.getEncordaciones().collect { encordacion ->
+                encordadosList.add(encordacion)
             }
-            encordacionesList.forEach { encordacion ->
+            encordadosList.forEach { encordacion ->
                 println(encordacion)
             }
 
             //Personalizaciones
             val personalizacionesInit = getPersonalizaciones()
             personalizacionesInit.forEach { personalizar ->
-                personalizacionesController.createPersonalizacion(personalizar)
+                personalizarController.createPersonalizacion(personalizar)
             }
             personalizacionesList.clear()
-            personalizacionesController.getPersonalizaciones().collect { personalizar ->
+            personalizarController.getPersonalizaciones().collect { personalizar ->
                 personalizacionesList.add(personalizar)
             }
             personalizacionesList.forEach { personalizar ->
@@ -101,6 +101,71 @@ class AppMongo : KoinComponent {
         init.join()
 
         delay(1000)
+
+        val update = launch {
+            //Productos
+            //GetById
+            val producto = productoController.getProductoById(productosList[1].id)
+            producto?.let { println(it) }
+            //Update
+            producto?.let {
+                it.precio += 3.00
+                productoController.updateProducto(it)
+            }
+            //Delete
+            val productoDelete = productoController.getProductoById(productosList[0].id)
+            if (productoDelete != null) {
+                productoController.deleteProducto(productoDelete)
+            }
+
+            //Adquisición
+            //GetById
+            val adquisicion = adquisicionController.getAdquisicionById(adquisicionList[1].id)
+            adquisicion?.let { println(it) }
+            //Update
+            adquisicion?.let {
+                it.cantidad += 1
+                adquisicionController.updateAdquisicion(it)
+            }
+            //Delete
+            val adquisicionDelete = adquisicionController.getAdquisicionById(adquisicionList[0].id)
+            if (adquisicionDelete != null) {
+                adquisicionController.deleteAdquisicion(adquisicionDelete)
+            }
+
+            //Encordados
+            //GetById
+            val encordado = encordarController.getEncordacionById(encordadosList[1].id)
+            encordado?.let { println(it) }
+            //Update
+            encordado?.let {
+                it.informacionEndordado = "Cuerdas de plástico"
+                encordarController.updateEncordacion(it)
+            }
+            //Delete
+            val encordadoDelete = encordarController.getEncordacionById(encordadosList[0].id)
+            if (encordadoDelete != null) {
+                encordarController.deleteEncordacion(encordadoDelete)
+            }
+
+            //Personalizar
+            //GetById
+            val personalizacion = personalizarController.getPersonalizacionById(personalizacionesList[1].id)
+            personalizacion?.let { println(it) }
+            //Update
+            personalizacion?.let {
+                it.informacionPersonalizacion = "Reducción de peso"
+                personalizarController.updatePersonalizacion(it)
+            }
+            //Delete
+            val personalizacionDelete = personalizarController.getPersonalizacionById(personalizacionesList[0].id)
+            if (personalizacionDelete != null) {
+                personalizarController.deletePersonalizacion(personalizacionDelete)
+            }
+
+        }
+
+        update.join()
 
         //Terminando los escuchadores
         escuchadorProducto.cancel()
