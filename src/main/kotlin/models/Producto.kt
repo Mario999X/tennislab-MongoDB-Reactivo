@@ -16,7 +16,7 @@ class Producto(
     val tipo: Tipo,
     val descripcion: String, // marca + modelo
     val stock: Int,
-    val precio: Double
+    var precio: Double
 ) {
     override fun toString(): String {
         return "Producto(id=$id, uuid=$uuid, tipo=$tipo, descripcion='$descripcion', stock=$stock, precio=$precio)"

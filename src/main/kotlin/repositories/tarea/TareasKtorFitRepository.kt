@@ -13,7 +13,6 @@ class TareasKtorFitRepository {
 
     suspend fun uploadAdquisicion(entity: Adquisicion): Adquisicion = withContext(Dispatchers.IO) {
         println("\tuploadAdquisicion")
-
         client.createAdquision(entity.toAdquisicionDto())
         return@withContext entity
     }
