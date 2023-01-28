@@ -24,3 +24,10 @@ fun UsuarioDto.toUsuario(pass: String): Usuario {
         perfil = Perfil.CLIENTE
     )
 }
+
+fun Usuario.toUsuarioDto(): UsuarioDto {
+    return UsuarioDto(
+        id = id.toString(),
+        name, email
+    )
+}

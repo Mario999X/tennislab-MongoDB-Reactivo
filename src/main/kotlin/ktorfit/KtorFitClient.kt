@@ -1,5 +1,8 @@
 package ktorfit
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import de.jensklingenberg.ktorfit.Ktorfit
 import de.jensklingenberg.ktorfit.create
 import io.ktor.client.plugins.*

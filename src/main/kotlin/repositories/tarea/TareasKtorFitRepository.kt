@@ -1,5 +1,8 @@
 package repositories.tarea
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import db.MongoDbManager
 import dto.toTareaDto
 import kotlinx.coroutines.Dispatchers
@@ -11,9 +14,12 @@ import models.Tarea
 import mu.KotlinLogging
 import org.litote.kmongo.Id
 
-
 private val logger = KotlinLogging.logger { }
 
+/**
+ * Repositorio de "Tareas", realiza operaciones CRUD basicas, ademas de tratar de subir la Tarea al servicio externalizado.
+ *
+ */
 class TareasKtorFitRepository : TareaRepository {
     // Inyectar dependencia
     private val client by lazy { KtorFitClient.instance }
@@ -22,7 +28,6 @@ class TareasKtorFitRepository : TareaRepository {
         println("\tuploadAdquisicion")
 
         client.createTarea(entity.toTareaDto())
-
         return@withContext entity
     }
 

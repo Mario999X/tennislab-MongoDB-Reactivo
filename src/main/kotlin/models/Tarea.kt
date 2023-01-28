@@ -17,16 +17,15 @@ class Tarea(
     val adquisicion: Adquisicion? = null,
     val personalizar: Personalizar? = null,
     val encordar: Encordar? = null,
-    var precio: Double? = CalculoPrecioTarea.calculatePrecio(
-        adquisicion?.producto?.precio,
+    var precio: Double = CalculoPrecioTarea.calculatePrecio(
+        adquisicion?.precio,
         personalizar?.precio,
         encordar?.precio
-    )
-
-// Trabajador?
+    ),
+    val usuario: Usuario // En el controlador se maneja que solo pueda ser de tipo ENCORDADOR
 // Pedido?
 ) {
     override fun toString(): String {
-        return "Tarea(id=$id, uuid=$uuid, adquisicion=$adquisicion, personalizar=$personalizar, encordar=$encordar, precio=$precio)"
+        return "Tarea(id=$id, uuid=$uuid, adquisicion=$adquisicion, personalizar=$personalizar, encordar=$encordar, precio=$precio, usuario=$usuario)"
     }
 }

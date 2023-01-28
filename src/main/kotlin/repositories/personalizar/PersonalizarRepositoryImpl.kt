@@ -1,5 +1,8 @@
 package repositories.personalizar
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import db.MongoDbManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
@@ -10,6 +13,10 @@ import org.litote.kmongo.Id
 
 private val logger = KotlinLogging.logger { }
 
+/**
+ * Repositorio de "Personalizar", realiza operaciones CRUD basicas
+ *
+ */
 class PersonalizarRepositoryImpl : PersonalizarRepository {
 
     override fun findAll(): Flow<Personalizar> {

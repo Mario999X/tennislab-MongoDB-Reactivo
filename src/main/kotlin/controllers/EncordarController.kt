@@ -1,5 +1,8 @@
 package controllers
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -11,6 +14,11 @@ import repositories.encordar.EncordarRepository
 
 private val logger = KotlinLogging.logger { }
 
+/**
+ * Controlador encargado de la accion "Encordar" usando un repositorio
+ *
+ * @property encordarRepository
+ */
 @Single
 class EncordarController(
     private val encordarRepository: EncordarRepository,

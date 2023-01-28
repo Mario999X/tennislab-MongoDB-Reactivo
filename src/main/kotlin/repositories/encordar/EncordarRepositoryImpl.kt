@@ -1,5 +1,8 @@
 package repositories.encordar
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import db.MongoDbManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
@@ -9,6 +12,10 @@ import org.litote.kmongo.Id
 
 private val logger = KotlinLogging.logger { }
 
+/**
+ * Repositorio de "Encordar", realiza operaciones CRUD basicas
+ *
+ */
 class EncordarRepositoryImpl : EncordarRepository {
 
     override fun findAll(): Flow<Encordar> {

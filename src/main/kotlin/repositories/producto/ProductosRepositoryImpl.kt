@@ -1,5 +1,8 @@
 package repositories.producto
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import db.MongoDbManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
@@ -9,6 +12,10 @@ import org.litote.kmongo.Id
 
 private val logger = KotlinLogging.logger { }
 
+/**
+ * Repositorio de "Productos", realiza operaciones CRUD basicas.
+ *
+ */
 class ProductosRepositoryImpl : ProductosRepository {
     override fun findAll(): Flow<Producto> {
         logger.debug { "findAll()" }
