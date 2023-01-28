@@ -23,7 +23,7 @@ fun getAdquisicionInit() = listOf(
         producto = getProductoInit()[0],
     ),
     Adquisicion(
-        cantidad = 1,
+        cantidad = 2,
         producto = getProductoInit()[1],
     ),
 )

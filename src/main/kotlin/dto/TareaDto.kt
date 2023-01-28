@@ -10,7 +10,8 @@ data class TareaDto(
     val adquisicionDto: AdquisicionDto?,
     val personalizarDto: PersonalizarDto?,
     val encordarDto: EncordarDto?,
-    val precio: String
+    val precio: String,
+    val usuarioDto: UsuarioDto
 ) {
 
 }
@@ -22,6 +23,7 @@ fun Tarea.toTareaDto(): TareaDto {
         adquisicionDto = adquisicion?.toAdquisicionDto(),
         personalizarDto = personalizar?.toPersonalizarDto(),
         encordarDto = encordar?.toEncordarDto(),
-        precio = precio.toString()
+        precio = precio.toString(),
+        usuarioDto = usuario.toUsuarioDto()
     )
 }

@@ -1,5 +1,8 @@
 package controllers
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -9,9 +12,12 @@ import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
 import repositories.personalizar.PersonalizarRepository
 
-
 private val logger = KotlinLogging.logger { }
 
+/**
+ * Controlador encargado de la accion "Encordar" usando un repositorio
+ * @property personalizarRepository
+ */
 @Single
 class PersonalizarController(
     private val personalizarRepository: PersonalizarRepository

@@ -1,5 +1,8 @@
 package ktorfit
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import controllers.APIController
 import db.MongoDbManager
 import db.getAdquisicionInit
@@ -13,6 +16,10 @@ import models.Usuario
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
+/**
+ * Una de las APPs principales, encargada de realizar conexion con la API (Usuarios-Tareas) y de cachear usuarios
+ *
+ */
 class KtorFitApp : KoinComponent {
 
     fun run(): Unit = runBlocking {
@@ -34,15 +41,20 @@ class KtorFitApp : KoinComponent {
 
         val tarea = Tarea(
             adquisicion = getAdquisicionInit()[1],
-            personalizar = getPersonalizaciones()[1]
+            personalizar = getPersonalizaciones()[1],
+            usuario = apiController.getUsuarioById(listadoUsers[9].id)!!
         )
-        apiController.uploadTarea(tarea)
+
         apiController.saveTarea(tarea)
+
     }
 
     private suspend fun limpiarDatos() {
         if (MongoDbManager.database.getCollection<Usuario>().countDocuments() > 0) {
             MongoDbManager.database.getCollection<Usuario>().drop()
+        }
+        if (MongoDbManager.database.getCollection<Tarea>().countDocuments() > 0) {
+            MongoDbManager.database.getCollection<Tarea>().drop()
         }
 
     }

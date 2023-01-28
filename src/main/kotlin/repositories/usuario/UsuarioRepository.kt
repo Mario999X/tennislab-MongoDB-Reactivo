@@ -1,8 +1,8 @@
 package repositories.usuario
 
 import models.Usuario
+import org.litote.kmongo.Id
 import repositories.CrudRepository
-import java.util.UUID
 
-interface UsuarioRepository : CrudRepository<Usuario, UUID> {
+interface UsuarioRepository : CrudRepository<Usuario, Id<Usuario>> {
 }
