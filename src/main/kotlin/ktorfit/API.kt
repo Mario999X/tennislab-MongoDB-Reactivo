@@ -6,6 +6,7 @@ package ktorfit
 import controllers.APIController
 import db.MongoDbManager
 import db.getAdquisicionInit
+import db.getEncordaciones
 import db.getPersonalizaciones
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
@@ -30,6 +31,7 @@ class KtorFitApp : KoinComponent {
 
         val apiController: APIController by inject()
 
+        //Usuarios
         val listadoUsers = apiController.getAllUsuariosApi().toList().toMutableList()
         listadoUsers[9].perfil = Perfil.ENCORDADOR
         listadoUsers[8].perfil = Perfil.ADMIN
@@ -39,13 +41,35 @@ class KtorFitApp : KoinComponent {
             println(it)
         }
 
-        val tarea = Tarea(
+        //CRUD
+        //Tareas
+        val tarea1 = Tarea(
             adquisicion = getAdquisicionInit()[1],
             personalizar = getPersonalizaciones()[1],
             usuario = apiController.getUsuarioById(listadoUsers[9].id)!!
         )
-
-        apiController.saveTarea(tarea)
+        val tarea2 = Tarea(
+            encordar = getEncordaciones()[1],
+            usuario = apiController.getUsuarioById(listadoUsers[9].id)!!
+        )
+        //Create
+        apiController.saveTarea(tarea1)
+        apiController.saveTarea(tarea2)
+        //FindAll
+        apiController.getAllTareas().collect { item -> println(item) }
+        //FindById
+        val tareaId = apiController.getTareaById(tarea1.id)
+        println(tareaId)
+        //Update
+        tareaId?.let {
+            it.precio += 10.0
+            apiController.saveTarea(it)
+        }
+        println(tareaId)
+        //Delete
+        tareaId?.let {
+            apiController.deleteTarea(it)
+        }
 
     }
 

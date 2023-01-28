@@ -22,7 +22,7 @@ class Tarea(
         personalizar?.precio,
         encordar?.precio
     ),
-    val usuario: Usuario // En el controlador se maneja que solo pueda ser de tipo ENCORDADOR
+    var usuario: Usuario // En el controlador se maneja que solo pueda ser de tipo ENCORDADOR
 // Pedido?
 ) {
     override fun toString(): String {

@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
 import org.litote.kmongo.Id
 import org.litote.kmongo.newId
+import utils.CalculoPrecioTarea
 import java.util.*
 
 @Serializable
@@ -15,7 +16,7 @@ class Adquisicion(
     val uuid: UUID = UUID.randomUUID(),
     var cantidad: Int,
     val producto: Producto,
-    val precio: Double = producto.precio * cantidad
+    val precio: Double = CalculoPrecioTarea.calculatePrecio(producto.precio, null, null) * cantidad
 
 // Tarea?
 ) {
