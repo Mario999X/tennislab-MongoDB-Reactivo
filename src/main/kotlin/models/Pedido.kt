@@ -14,11 +14,15 @@ class Pedido(
     @Contextual
     val uuid: UUID = UUID.randomUUID(),
     var estadoPedido: EstadoPedido,
-    var fechaEntrada: String,
-    var fechaProgramada: String,
-    var fechaSalida: String,
-    // Cliente? yo creo que esto no tendria que estar a null, en los anteriores lo tenemos
-// Tareas: MutableList
-)
+    val fechaEntrada: String,
+    val fechaProgramada: String,
+    var fechaSalida: String? = null, // esta es actualizable
+    var cliente: Usuario,
+    var tareas: List<Tarea>
+){
+    override fun toString(): String {
+        return "Pedido(id=$id, uuid=$uuid, estadoPedido=$estadoPedido, fechaEntrada='$fechaEntrada', fechaProgramada='$fechaProgramada', fechaSalida=$fechaSalida, cliente=$cliente, tareas=$tareas)"
+    }
+}
 
 enum class EstadoPedido { RECIBIDO, PROCESANDO, TERMINADO }

@@ -9,6 +9,8 @@ import repositories.adquisicion.AdquisicionRepository
 import repositories.adquisicion.AdquisicionRepositoryImpl
 import repositories.encordar.EncordarRepository
 import repositories.encordar.EncordarRepositoryImpl
+import repositories.pedido.PedidoRepository
+import repositories.pedido.PedidoRepositoryImpl
 import repositories.personalizar.PersonalizarRepository
 import repositories.personalizar.PersonalizarRepositoryImpl
 import repositories.producto.ProductosRepository
@@ -39,6 +41,7 @@ val myModule = module {
     single<PersonalizarRepository>(named("PersonalizarRepository")) { PersonalizarRepositoryImpl() }
     single(named("UsuariosCacheRepository")) { UsuariosCacheRepositoryImpl() }
     single(named("UsuariosMongoRepository")) { UsuariosMongoRepositoryImpl() }
+    single<PedidoRepository>(named("PedidoRepository")) { PedidoRepositoryImpl() }
 
 
     //Controladores
@@ -54,4 +57,5 @@ val myModule = module {
             get(named("TareasKtorFit"))
         )
     }
+    single { PedidoController(get(named("PedidoRepository"))) }
 }
