@@ -37,12 +37,33 @@ class KtorFitApp : KoinComponent {
         listadoUsers[9].perfil = Perfil.ENCORDADOR
         listadoUsers[8].perfil = Perfil.ADMIN
 
+        // Create CACHE-MONGO
         listadoUsers.forEach {
-            apiController.saveUsuarios(it)
+            apiController.saveUsuario(it)
             println(it)
         }
+        // FindAll CACHE-MONGO
+        apiController.getAllUsuariosCache().collect{
+            println(it)
+        }
+        apiController.getAllUsuariosMongo().collect{
+            println(it)
+        }
+        // FindById -> Cache -> Mongo
+        val userId = apiController.getUsuarioById(listadoUsers[1].id)
+        val userId2 = apiController.getUsuarioById(listadoUsers[2].id)
+        println(userId)
+        println(userId2)
+        // Update -> Cache && Mongo
+        userId?.let {
+            it.name = "Solid Snake"
+            apiController.saveUsuario(it)
+        }
+        // Delete -> Cache && Mongo
+        userId2?.let {
+            apiController.deleteUsuario(it)
+        }
 
-        //CRUD
         //Tareas
         val tarea1 = Tarea(
             adquisicion = getAdquisicionInit()[1],
