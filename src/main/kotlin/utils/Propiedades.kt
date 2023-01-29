@@ -17,9 +17,8 @@ object Propiedades {
      * @return Devuelve el archivo especificado para obtener los datos deseados
      */
     fun propertiesReader(propertiesFile: String): Properties {
-        val raiz = System.getProperty("user.dir")
         val file =
-            FileInputStream(raiz + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + propertiesFile)
+            FileInputStream("." + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + propertiesFile)
         val prop = Properties()
         prop.load(file)
         return prop

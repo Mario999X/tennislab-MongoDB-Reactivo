@@ -43,7 +43,15 @@ class APIController(
         return@withContext listado.asFlow()
     }
 
-    suspend fun saveUsuarios(entity: Usuario) = withContext(Dispatchers.IO) {
+    suspend fun getAllUsuariosMongo(): Flow<Usuario> = withContext(Dispatchers.IO) {
+        return@withContext usuariosMongoRepositoryImpl.findAll()
+    }
+
+    suspend fun getAllUsuariosCache(): Flow<Usuario> = withContext(Dispatchers.IO) {
+        return@withContext usuariosCacheRepositoryImpl.findAll()
+    }
+
+    suspend fun saveUsuario(entity: Usuario) = withContext(Dispatchers.IO) {
         launch {
             usuariosCacheRepositoryImpl.save(entity)
         }
