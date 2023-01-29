@@ -2,6 +2,7 @@ package models
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import models.producto.Producto
 import org.bson.codecs.pojo.annotations.BsonId
 import org.litote.kmongo.Id
 import org.litote.kmongo.newId

@@ -15,7 +15,6 @@ fun main() {
             DiModule().run { myModule }
         )
     }
-    KtorFitApp().run()
     AppMongo().run()
 }
 

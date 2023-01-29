@@ -4,21 +4,21 @@
 import controllers.*
 import db.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.reactive.collect
-import models.Adquisicion
-import models.Encordar
-import models.Personalizar
-import models.Producto
+import models.*
 import models.maquina.Encordadora
 import models.maquina.Personalizadora
+import models.producto.Producto
 import mu.KotlinLogging
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.time.LocalDateTime
 
 private val logger = KotlinLogging.logger { }
 
 /**
- * App donde se realiza parte del CRUD de la aplicación
+ * App donde se realiza el CRUD de la aplicación, de realizar conexión con la API (Usuarios-Tareas) y de cachear usuarios
  * @property KoinComponent
  */
 class AppMongo : KoinComponent {
@@ -36,6 +36,8 @@ class AppMongo : KoinComponent {
         val personalizarController: PersonalizarController by inject()
         val maquinaEncordadoraController: MaquinaEncordadoraController by inject()
         val maquinaPersonalizadoraController: MaquinaPersonalizadoraController by inject()
+        val apiController: APIController by inject()
+        val pedidoController: PedidoController by inject()
 
         //Listas
         val productosList = mutableListOf<Producto>()
@@ -54,6 +56,40 @@ class AppMongo : KoinComponent {
         }
 
         //Iniciando datos
+
+        //Usuarios
+        val listadoUsers = apiController.getAllUsuariosApi().toList().toMutableList()
+        listadoUsers[0].raqueta = getRaquetasInit()
+        listadoUsers[9].perfil = Perfil.ENCORDADOR
+        listadoUsers[8].perfil = Perfil.ADMIN
+
+        // Create CACHE-MONGO
+        listadoUsers.forEach {
+            apiController.saveUsuario(it)
+            println(it)
+        }
+        // FindAll CACHE-MONGO
+        apiController.getAllUsuariosCache().collect {
+            println(it)
+        }
+        apiController.getAllUsuariosMongo().collect {
+            println(it)
+        }
+        // FindById -> Cache -> Mongo
+        val userId = apiController.getUsuarioById(listadoUsers[1].id)
+        val userId2 = apiController.getUsuarioById(listadoUsers[2].id)
+        println(userId)
+        println(userId2)
+        // Update -> Cache && Mongo
+        userId?.let {
+            it.name = "Solid Snake"
+            apiController.saveUsuario(it)
+        }
+        // Delete -> Cache && Mongo
+        userId2?.let {
+            apiController.deleteUsuario(it)
+        }
+
         val init = launch {
             //Productos
             val productosInit = getProductoInit()
@@ -132,6 +168,7 @@ class AppMongo : KoinComponent {
             maquinaPersonalizadoraList.forEach { maquinas ->
                 println(maquinas)
             }
+
         }
         init.join()
 
@@ -205,6 +242,10 @@ class AppMongo : KoinComponent {
             //Update
             encordadora?.let {
                 it.isManual = false
+                it.turno = Turno(
+                    horario = TipoHorario.TARDE,
+                    trabajador = apiController.getUsuarioById(listadoUsers[9].id)!!
+                )
                 maquinaEncordadoraController.updateEncordadora(it)
             }
             //Delete
@@ -230,6 +271,66 @@ class AppMongo : KoinComponent {
                 maquinaPersonalizadoraController.deletePersonalizadora(it)
             }
 
+            //Tareas
+            val tarea1 = Tarea(
+                adquisicion = getAdquisicionInit()[1],
+                personalizar = getPersonalizaciones()[1],
+                usuario = apiController.getUsuarioById(listadoUsers[9].id)!!
+            )
+            val tarea2 = Tarea(
+                encordar = getEncordaciones()[1],
+                usuario = apiController.getUsuarioById(listadoUsers[9].id)!!,
+                raqueta = apiController.getUsuarioById(listadoUsers[0].id)!!.raqueta?.get(0)
+            )
+            //Create
+            apiController.saveTarea(tarea1)
+            apiController.saveTarea(tarea2)
+            //FindAll
+            apiController.getAllTareas().collect { item -> println(item) }
+            //FindById
+            val tareaId = apiController.getTareaById(tarea1.id)
+            println(tareaId)
+            //Update
+            tareaId?.let {
+                it.precio += 10.0
+                apiController.saveTarea(it)
+            }
+            println(tareaId)
+            //Delete
+            tareaId?.let {
+                apiController.deleteTarea(it)
+            }
+
+            // Pedidos
+            val pedido = Pedido(
+                estadoPedido = EstadoPedido.PROCESANDO,
+                fechaEntrada = LocalDateTime.now().toString(),
+                fechaProgramada = LocalDateTime.now().plusDays(10).toString(),
+                cliente = apiController.getUsuarioById(listadoUsers[0].id)!!,
+                tareas = apiController.getAllTareas().toList()
+            )
+            val pedido2 = Pedido(
+                estadoPedido = EstadoPedido.TERMINADO,
+                fechaEntrada = LocalDateTime.now().minusDays(5).toString(),
+                fechaProgramada = LocalDateTime.now().plusDays(7).toString(),
+                cliente = apiController.getUsuarioById(listadoUsers[0].id)!!,
+                tareas = apiController.getAllTareas().toList()
+            )
+            // Create
+            pedidoController.createPedido(pedido)
+            pedidoController.createPedido(pedido2)
+            // FindAll
+            pedidoController.getPedidos().collect { println(it) }
+            // FindById
+            val pedidoId = pedidoController.getPedidoById(pedido.id)
+            println(pedidoId)
+            // Update
+            pedidoId?.let {
+                it.fechaSalida = LocalDateTime.now().plusDays(11).toString()
+                pedidoController.updatePedido(it)
+            }
+            // Delete
+            pedidoController.deletePedido(pedido2)
         }
 
         update.join()
@@ -238,6 +339,7 @@ class AppMongo : KoinComponent {
         escuchadorProducto.cancel()
     }
 
+    // Si faltan los IF puede dar un aviso en la ejecucion
     suspend fun limpiarDatos() = withContext(Dispatchers.IO) {
         logger.debug { "Borrando datos de la base de datos" }
         MongoDbManager.database.getCollection<Producto>().drop()
@@ -246,6 +348,9 @@ class AppMongo : KoinComponent {
         MongoDbManager.database.getCollection<Personalizar>().drop()
         MongoDbManager.database.getCollection<Encordadora>().drop()
         MongoDbManager.database.getCollection<Personalizadora>().drop()
+        MongoDbManager.database.getCollection<Usuario>().drop()
+        MongoDbManager.database.getCollection<Tarea>().drop()
+        MongoDbManager.database.getCollection<Pedido>().drop()
     }
 }
 

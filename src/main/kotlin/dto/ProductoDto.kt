@@ -1,7 +1,7 @@
 package dto
 
 import kotlinx.serialization.Serializable
-import models.Producto
+import models.producto.Producto
 
 @Serializable
 data class ProductoDto(

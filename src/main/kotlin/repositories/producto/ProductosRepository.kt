@@ -3,7 +3,8 @@ package repositories.producto
 /**
  * @author Mario Resa y Sebastián Mendoza
  */
-import models.Producto
+
+import models.producto.Producto
 import org.litote.kmongo.Id
 import repositories.CrudRepository
 
