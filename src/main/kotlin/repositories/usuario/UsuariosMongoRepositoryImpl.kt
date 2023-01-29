@@ -9,8 +9,8 @@ import models.Usuario
 import org.litote.kmongo.Id
 
 /**
- * Repositorios de "Usuarios", encargados de manejar operaciones CRUD basicas
- *
+ * Repositorio de "Usuario", realiza operaciones CRUD básicas
+ *@property UsuarioRepository
  */
 class UsuariosMongoRepositoryImpl : UsuarioRepository {
 

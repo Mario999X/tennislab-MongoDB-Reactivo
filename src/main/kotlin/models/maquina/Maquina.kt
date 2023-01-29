@@ -15,4 +15,9 @@ open class Maquina(
     val descripcion: String, // marca + modelo
     var fechaAdquisicion: String,
     var numSerie: Long
-)
+
+) {
+    override fun toString(): String {
+        return "Maquina(id=$id, uuid=$uuid, descripcion='$descripcion', fechaAdquisicion='$fechaAdquisicion', numSerie=$numSerie)"
+    }
+}

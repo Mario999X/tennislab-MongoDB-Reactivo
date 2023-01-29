@@ -15,7 +15,7 @@ import repositories.adquisicion.AdquisicionRepository
 private val logger = KotlinLogging.logger { }
 
 /**
- * Controlador al que se le pasa un repositorio y un servicio, el cual contiene el CRUD para las adquisiciones
+ * Controlador al que se le pasa un repositorio, el cual contiene el CRUD para las adquisiciones
  * @param adquisicionRepository
  */
 @Single

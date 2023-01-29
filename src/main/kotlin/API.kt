@@ -1,14 +1,9 @@
-package ktorfit
-
 /**
  * @author Mario Resa y Sebastián Mendoza
  */
 import controllers.APIController
 import controllers.PedidoController
-import db.MongoDbManager
-import db.getAdquisicionInit
-import db.getEncordaciones
-import db.getPersonalizaciones
+import db.*
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -18,8 +13,8 @@ import org.koin.core.component.inject
 import java.time.LocalDateTime
 
 /**
- * Una de las APPs principales, encargada de realizar conexion con la API (Usuarios-Tareas) y de cachear usuarios
- *
+ * Una de las APPs principales, encargada de realizar conexión con la API (Usuarios-Tareas) y de cachear usuarios
+ *@property KoinComponent
  */
 class KtorFitApp : KoinComponent {
 
@@ -34,6 +29,7 @@ class KtorFitApp : KoinComponent {
 
         //Usuarios
         val listadoUsers = apiController.getAllUsuariosApi().toList().toMutableList()
+        listadoUsers[0].raqueta = getRaquetasInit()
         listadoUsers[9].perfil = Perfil.ENCORDADOR
         listadoUsers[8].perfil = Perfil.ADMIN
 
@@ -43,10 +39,10 @@ class KtorFitApp : KoinComponent {
             println(it)
         }
         // FindAll CACHE-MONGO
-        apiController.getAllUsuariosCache().collect{
+        apiController.getAllUsuariosCache().collect {
             println(it)
         }
-        apiController.getAllUsuariosMongo().collect{
+        apiController.getAllUsuariosMongo().collect {
             println(it)
         }
         // FindById -> Cache -> Mongo
@@ -72,7 +68,8 @@ class KtorFitApp : KoinComponent {
         )
         val tarea2 = Tarea(
             encordar = getEncordaciones()[1],
-            usuario = apiController.getUsuarioById(listadoUsers[9].id)!!
+            usuario = apiController.getUsuarioById(listadoUsers[9].id)!!,
+            raqueta = apiController.getUsuarioById(listadoUsers[0].id)!!.raqueta?.get(0)
         )
         //Create
         apiController.saveTarea(tarea1)

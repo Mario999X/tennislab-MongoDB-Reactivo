@@ -1,5 +1,8 @@
 package repositories.pedido
 
+/**
+ * @author Mario Resa y Sebatián Mendoza
+ */
 import db.MongoDbManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
@@ -7,15 +10,11 @@ import models.Pedido
 import mu.KotlinLogging
 import org.litote.kmongo.Id
 
-/**
- * @author Mario Resa y Sebastián Mendoza
- */
-
 private val logger = KotlinLogging.logger { }
 
 /**
- * Repositorio de "Pedidos", realiza operaciones CRUD basicas
- *
+ * Repositorio de "Pedido", realiza operaciones CRUD básicas
+ *@property PedidoRepository
  */
 class PedidoRepositoryImpl : PedidoRepository {
 

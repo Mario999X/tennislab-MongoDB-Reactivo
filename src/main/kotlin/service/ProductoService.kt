@@ -1,5 +1,8 @@
 package service
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import com.mongodb.reactivestreams.client.ChangeStreamPublisher
 import db.MongoDbManager
 import models.Producto
@@ -9,6 +12,9 @@ import org.koin.core.annotation.Single
 
 private val logger = KotlinLogging.logger { }
 
+/**
+ * Clase que contiene un método que "ve" cambios a tiempo real
+ */
 @Single
 @Named("ProductoService")
 class ProductoService {

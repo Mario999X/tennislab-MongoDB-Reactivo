@@ -6,10 +6,9 @@ package repositories
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Interfaz generica que se implementara en los repositorios; cuenta con las operaciones basicas.
- *
- * @param T
- * @param ID
+ * Interfaz genérica que se implementara en los repositorios; cuenta con las operaciones básicas.
+ * @param T Genérico de la clase a implementar
+ * @param ID Genérico del tipo de variable a implementar
  */
 interface CrudRepository<T, ID> {
     fun findAll(): Flow<T>

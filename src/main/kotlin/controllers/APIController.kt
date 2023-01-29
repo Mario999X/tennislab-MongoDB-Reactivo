@@ -23,10 +23,10 @@ import org.litote.kmongo.Id
 /**
  * Controlador encargado de las tareas y usuarios, ambos usan en parte la API
  *
- * @property usuariosCacheRepositoryImpl
- * @property usuariosMongoRepositoryImpl
- * @property usuariosKtorFitRepositoryImpl
- * @property tareasKtorFitRepository
+ * @param usuariosCacheRepositoryImpl
+ * @param usuariosMongoRepositoryImpl
+ * @param usuariosKtorFitRepositoryImpl
+ * @param tareasKtorFitRepository
  */
 @Single
 class APIController(

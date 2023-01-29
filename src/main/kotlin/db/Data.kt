@@ -1,6 +1,12 @@
 package db
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import models.*
+import models.maquina.Encordadora
+import models.maquina.Personalizadora
+import java.time.LocalDate
 
 fun getProductoInit() = listOf(
     Producto(
@@ -46,3 +52,49 @@ fun getPersonalizaciones() = listOf(
     )
 )
 
+fun getRaquetasInit() = listOf(
+    Raqueta(
+        descripcion = "Wilson Burn"
+    ),
+    Raqueta(
+        descripcion = "Babolat Pure Aero"
+    )
+)
+
+fun getEncordadorasInit() = listOf(
+    Encordadora(
+        descripcion = "Toshiba ABC",
+        fechaAdquisicion = LocalDate.now().toString(),
+        numSerie = 120L,
+        isManual = true,
+        tensionMax = 23.2,
+        tensionMin = 20.5
+    ),
+    Encordadora(
+        descripcion = "Vevor",
+        fechaAdquisicion = LocalDate.now().toString(),
+        numSerie = 320L,
+        isManual = true,
+        tensionMax = 20.2,
+        tensionMin = 17.5
+    )
+)
+
+fun getPersonalizadorasInit() = listOf(
+    Personalizadora(
+        descripcion = "Toshiba ABC",
+        fechaAdquisicion = LocalDate.now().toString(),
+        numSerie = 540L,
+        maniobrabilidad = true,
+        balance = false,
+        rigidez = false
+    ),
+    Personalizadora(
+        descripcion = "Vevor",
+        fechaAdquisicion = LocalDate.now().toString(),
+        numSerie = 940L,
+        maniobrabilidad = true,
+        balance = true,
+        rigidez = false
+    )
+)

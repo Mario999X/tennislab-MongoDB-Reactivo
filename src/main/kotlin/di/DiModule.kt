@@ -1,5 +1,8 @@
 package di
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import controllers.*
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
@@ -9,6 +12,10 @@ import repositories.adquisicion.AdquisicionRepository
 import repositories.adquisicion.AdquisicionRepositoryImpl
 import repositories.encordar.EncordarRepository
 import repositories.encordar.EncordarRepositoryImpl
+import repositories.maquina.MaquinaEncordadoraRepository
+import repositories.maquina.MaquinaEncordadoraRepositoryImpl
+import repositories.maquina.MaquinaPersonalizadoraRepository
+import repositories.maquina.MaquinaPersonalizadoraRepositoryImpl
 import repositories.pedido.PedidoRepository
 import repositories.pedido.PedidoRepositoryImpl
 import repositories.personalizar.PersonalizarRepository
@@ -21,6 +28,9 @@ import repositories.usuario.UsuariosKtorFitRepositoryImpl
 import repositories.usuario.UsuariosMongoRepositoryImpl
 import service.ProductoService
 
+/**
+ * Clase que contiene todas las anotaciones para la inyección de dependencias con Koin
+ */
 @Module
 @ComponentScan("kotlin")
 class DiModule
@@ -42,6 +52,8 @@ val myModule = module {
     single(named("UsuariosCacheRepository")) { UsuariosCacheRepositoryImpl() }
     single(named("UsuariosMongoRepository")) { UsuariosMongoRepositoryImpl() }
     single<PedidoRepository>(named("PedidoRepository")) { PedidoRepositoryImpl() }
+    single<MaquinaEncordadoraRepository>(named("MaquinaEncordadoraRepository")) { MaquinaEncordadoraRepositoryImpl() }
+    single<MaquinaPersonalizadoraRepository>(named("MaquinaPersonalizadoraRepository")) { MaquinaPersonalizadoraRepositoryImpl() }
 
 
     //Controladores
@@ -58,4 +70,6 @@ val myModule = module {
         )
     }
     single { PedidoController(get(named("PedidoRepository"))) }
+    single { MaquinaEncordadoraController(get(named("MaquinaEncordadoraRepository"))) }
+    single { MaquinaPersonalizadoraController(get(named("MaquinaPersonalizadoraRepository"))) }
 }

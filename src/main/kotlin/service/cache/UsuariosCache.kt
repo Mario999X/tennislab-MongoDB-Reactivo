@@ -1,5 +1,8 @@
 package service.cache
 
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
 import io.github.reactivecircus.cache4k.Cache
 import models.Usuario
 import org.koin.core.annotation.Named
@@ -7,6 +10,9 @@ import org.koin.core.annotation.Single
 import org.litote.kmongo.Id
 import kotlin.time.Duration.Companion.minutes
 
+/**
+ * Clase donde se configura las características de la caché
+ */
 @Single
 @Named("UsuariosCache")
 class UsuariosCache {

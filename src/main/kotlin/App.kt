@@ -1,7 +1,7 @@
-import controllers.AdquisicionController
-import controllers.EncordarController
-import controllers.PersonalizarController
-import controllers.ProductoController
+/**
+ * @author Mario Resa y Sebastián Mendoza
+ */
+import controllers.*
 import db.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.reactive.collect
@@ -9,12 +9,18 @@ import models.Adquisicion
 import models.Encordar
 import models.Personalizar
 import models.Producto
+import models.maquina.Encordadora
+import models.maquina.Personalizadora
 import mu.KotlinLogging
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 private val logger = KotlinLogging.logger { }
 
+/**
+ * App donde se realiza parte del CRUD de la aplicación
+ * @property KoinComponent
+ */
 class AppMongo : KoinComponent {
 
     fun run(): Unit = runBlocking {
@@ -28,12 +34,16 @@ class AppMongo : KoinComponent {
         val adquisicionController: AdquisicionController by inject()
         val encordarController: EncordarController by inject()
         val personalizarController: PersonalizarController by inject()
+        val maquinaEncordadoraController: MaquinaEncordadoraController by inject()
+        val maquinaPersonalizadoraController: MaquinaPersonalizadoraController by inject()
 
         //Listas
         val productosList = mutableListOf<Producto>()
         val adquisicionList = mutableListOf<Adquisicion>()
         val encordadosList = mutableListOf<Encordar>()
         val personalizacionesList = mutableListOf<Personalizar>()
+        val maquinaEncordadoraList = mutableListOf<Encordadora>()
+        val maquinaPersonalizadoraList = mutableListOf<Personalizadora>()
 
         //Escuchadores
         val escuchadorProducto = launch {
@@ -74,10 +84,10 @@ class AppMongo : KoinComponent {
             //Encordados
             val encordacionesInit = getEncordaciones()
             encordacionesInit.forEach { encordacion ->
-                encordarController.createEncordacion(encordacion)
+                encordarController.createEncordados(encordacion)
             }
             encordadosList.clear()
-            encordarController.getEncordaciones().collect { encordacion ->
+            encordarController.getEncordados().collect { encordacion ->
                 encordadosList.add(encordacion)
             }
             encordadosList.forEach { encordacion ->
@@ -97,6 +107,31 @@ class AppMongo : KoinComponent {
                 println(personalizar)
             }
 
+            //Maquinas encordadoras
+            val maquinasEncordadorasInit = getEncordadorasInit()
+            maquinasEncordadorasInit.forEach { maquinas ->
+                maquinaEncordadoraController.createEncordadora(maquinas)
+            }
+            maquinaEncordadoraList.clear()
+            maquinaEncordadoraController.getEncordadoras().collect { encordadora ->
+                maquinaEncordadoraList.add(encordadora)
+            }
+            maquinaEncordadoraList.forEach { maquinas ->
+                println(maquinas)
+            }
+
+            //Maquinas personalizadoras
+            val maquinaPersonalizadorasInit = getPersonalizadorasInit()
+            maquinaPersonalizadorasInit.forEach { maquinas ->
+                maquinaPersonalizadoraController.createPersonalizadora(maquinas)
+            }
+            maquinaPersonalizadoraList.clear()
+            maquinaPersonalizadoraController.getPersonalizadora().collect { personalizadoras ->
+                maquinaPersonalizadoraList.add(personalizadoras)
+            }
+            maquinaPersonalizadoraList.forEach { maquinas ->
+                println(maquinas)
+            }
         }
         init.join()
 
@@ -114,8 +149,8 @@ class AppMongo : KoinComponent {
             }
             //Delete
             val productoDelete = productoController.getProductoById(productosList[0].id)
-            if (productoDelete != null) {
-                productoController.deleteProducto(productoDelete)
+            productoDelete?.let {
+                productoController.deleteProducto(it)
             }
 
             //Adquisición
@@ -129,23 +164,23 @@ class AppMongo : KoinComponent {
             }
             //Delete
             val adquisicionDelete = adquisicionController.getAdquisicionById(adquisicionList[0].id)
-            if (adquisicionDelete != null) {
-                adquisicionController.deleteAdquisicion(adquisicionDelete)
+            adquisicionDelete?.let {
+                adquisicionController.deleteAdquisicion(it)
             }
 
             //Encordados
             //GetById
-            val encordado = encordarController.getEncordacionById(encordadosList[1].id)
+            val encordado = encordarController.getEncordadoById(encordadosList[1].id)
             encordado?.let { println(it) }
             //Update
             encordado?.let {
                 it.informacionEndordado = "Cuerdas de plástico"
-                encordarController.updateEncordacion(it)
+                encordarController.updateEncordado(it)
             }
             //Delete
-            val encordadoDelete = encordarController.getEncordacionById(encordadosList[0].id)
-            if (encordadoDelete != null) {
-                encordarController.deleteEncordacion(encordadoDelete)
+            val encordadoDelete = encordarController.getEncordadoById(encordadosList[0].id)
+            encordadoDelete?.let {
+                encordarController.deleteEncordado(it)
             }
 
             //Personalizar
@@ -159,8 +194,40 @@ class AppMongo : KoinComponent {
             }
             //Delete
             val personalizacionDelete = personalizarController.getPersonalizacionById(personalizacionesList[0].id)
-            if (personalizacionDelete != null) {
-                personalizarController.deletePersonalizacion(personalizacionDelete)
+            personalizacionDelete?.let {
+                personalizarController.deletePersonalizacion(it)
+            }
+
+            //Encordadora
+            //GetById
+            val encordadora = maquinaEncordadoraController.getEncordadoraById(maquinaEncordadoraList[1].id)
+            encordadora?.let { println(it) }
+            //Update
+            encordadora?.let {
+                it.isManual = false
+                maquinaEncordadoraController.updateEncordadora(it)
+            }
+            //Delete
+            val encordadoraDelete = maquinaEncordadoraController.getEncordadoraById(maquinaEncordadoraList[0].id)
+            encordadoraDelete?.let {
+                maquinaEncordadoraController.deleteEncordadora(it)
+            }
+
+            //Personalizadora
+            //GetById
+            val personalizadora =
+                maquinaPersonalizadoraController.getPersonalizadoraById(maquinaPersonalizadoraList[0].id)
+            personalizadora?.let { println(it) }
+            //Update
+            personalizadora?.let {
+                it.rigidez = true
+                maquinaPersonalizadoraController.updatePersonalizadora(it)
+            }
+            //Delete
+            val personalizadoraDelete =
+                maquinaPersonalizadoraController.getPersonalizadoraById(maquinaPersonalizadoraList[1].id)
+            personalizadoraDelete?.let {
+                maquinaPersonalizadoraController.deletePersonalizadora(it)
             }
 
         }
@@ -177,6 +244,8 @@ class AppMongo : KoinComponent {
         MongoDbManager.database.getCollection<Adquisicion>().drop()
         MongoDbManager.database.getCollection<Encordar>().drop()
         MongoDbManager.database.getCollection<Personalizar>().drop()
+        MongoDbManager.database.getCollection<Encordadora>().drop()
+        MongoDbManager.database.getCollection<Personalizadora>().drop()
     }
 }
 

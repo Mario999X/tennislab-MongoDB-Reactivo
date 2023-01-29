@@ -15,9 +15,8 @@ import repositories.pedido.PedidoRepository
 private val logger = KotlinLogging.logger { }
 
 /**
- * Controlador encargado de "Pedidos" usando un repositorio
- *
- * @property pedidoRepository
+ * Controlador al que se le pasa un repositorio, el cual contiene el CRUD para los pedidos
+ * @param pedidoRepository
  */
 class PedidoController(
     private val pedidoRepository: PedidoRepository

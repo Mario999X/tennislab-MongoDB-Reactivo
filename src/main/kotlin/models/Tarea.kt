@@ -22,10 +22,10 @@ class Tarea(
         personalizar?.precio,
         encordar?.precio
     ),
-    var usuario: Usuario // En el controlador se maneja que solo pueda ser de tipo ENCORDADOR
-// Pedido?
+    var usuario: Usuario, // En el controlador se maneja que solo pueda ser de tipo ENCORDADOR
+    var raqueta: Raqueta? = null
 ) {
     override fun toString(): String {
-        return "Tarea(id=$id, uuid=$uuid, adquisicion=$adquisicion, personalizar=$personalizar, encordar=$encordar, precio=$precio, usuario=$usuario)"
+        return "Tarea(id=$id, uuid=$uuid, adquisicion=$adquisicion, personalizar=$personalizar, encordar=$encordar, precio=$precio, usuario=$usuario, raqueta=$raqueta)"
     }
 }

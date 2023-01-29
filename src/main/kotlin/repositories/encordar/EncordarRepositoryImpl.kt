@@ -13,8 +13,8 @@ import org.litote.kmongo.Id
 private val logger = KotlinLogging.logger { }
 
 /**
- * Repositorio de "Encordar", realiza operaciones CRUD basicas
- *
+ * Repositorio de "Encordar", realiza operaciones CRUD básicas
+ *@property EncordarRepository
  */
 class EncordarRepositoryImpl : EncordarRepository {
 

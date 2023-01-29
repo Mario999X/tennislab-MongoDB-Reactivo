@@ -11,8 +11,8 @@ import org.litote.kmongo.Id
 import service.cache.UsuariosCache
 
 /**
- * Repositorio de "Usuarios" que se encarga de manejar la cache del programa.
- *
+ * Repositorio de la caché, realiza operaciones CRUD básicas
+ *@property UsuarioRepository
  */
 class UsuariosCacheRepositoryImpl : UsuarioRepository {
 

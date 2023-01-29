@@ -14,8 +14,8 @@ import org.litote.kmongo.Id
 private val logger = KotlinLogging.logger { }
 
 /**
- * Repositorio de "Personalizar", realiza operaciones CRUD basicas
- *
+ * Repositorio de "Personalizar", realiza operaciones CRUD básicas
+ *@property PersonalizarRepository
  */
 class PersonalizarRepositoryImpl : PersonalizarRepository {
 

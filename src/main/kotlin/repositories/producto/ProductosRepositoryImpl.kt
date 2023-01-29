@@ -13,8 +13,8 @@ import org.litote.kmongo.Id
 private val logger = KotlinLogging.logger { }
 
 /**
- * Repositorio de "Productos", realiza operaciones CRUD basicas.
- *
+ * Repositorio de "Producto", realiza operaciones CRUD básicas
+ *@property ProductosRepository
  */
 class ProductosRepositoryImpl : ProductosRepository {
     override fun findAll(): Flow<Producto> {

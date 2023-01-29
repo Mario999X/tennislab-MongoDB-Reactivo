@@ -4,17 +4,17 @@ package repositories.usuario
  * @author Mario Resa y Sebastián Mendoza
  */
 import dto.UsuarioDto
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.withContext
 import ktorfit.KtorFitClient
 
 /**
- * Repositorio de "Usuarios", se encarga unicamente de obtener a los usuarios del servicio externalizado.
- *
+ * Repositorio de Usuarios en la API
  */
 class UsuariosKtorFitRepositoryImpl {
-    // Inyectar dependencia
+
     private val client by lazy { KtorFitClient.instance }
 
     suspend fun findAll(): Flow<UsuarioDto> = withContext(Dispatchers.IO) {

@@ -17,11 +17,11 @@ import org.litote.kmongo.Id
 private val logger = KotlinLogging.logger { }
 
 /**
- * Repositorio de "Tareas", realiza operaciones CRUD basicas, ademas de tratar de subir la Tarea al servicio externalizado.
- *
+ * Repositorio de "Tareas", realiza operaciones CRUD básicas
+ *@property TareaRepository
  */
 class TareasKtorFitRepository : TareaRepository {
-    // Inyectar dependencia
+
     private val client by lazy { KtorFitClient.instance }
 
     suspend fun uploadTarea(entity: Tarea): Tarea = withContext(Dispatchers.IO) {

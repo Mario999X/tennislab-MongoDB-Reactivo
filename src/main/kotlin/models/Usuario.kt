@@ -15,10 +15,11 @@ class Usuario(
     var name: String,
     var email: String,
     val password: ByteArray,
+    var raqueta: List<Raqueta>? = null,
     var perfil: Perfil
 ) {
     override fun toString(): String {
-        return "Usuario(id=$id, uuid=$uuid, name='$name', email='$email', password=$password, perfil=$perfil)"
+        return "Usuario(id=$id, uuid=$uuid, name='$name', email='$email', password=$password, raqueta=$raqueta, perfil=$perfil)"
     }
 }
 

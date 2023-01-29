@@ -15,7 +15,7 @@ import repositories.encordar.EncordarRepository
 private val logger = KotlinLogging.logger { }
 
 /**
- * Controlador encargado de la accion "Encordar" usando un repositorio
+ * Controlador al que se le pasa un repositorio, el cual contiene el CRUD para los encordados
  *
  * @property encordarRepository
  */
@@ -23,28 +23,28 @@ private val logger = KotlinLogging.logger { }
 class EncordarController(
     private val encordarRepository: EncordarRepository,
 ) {
-    fun getEncordaciones(): Flow<Encordar> {
+    fun getEncordados(): Flow<Encordar> {
         logger.debug { "Obteniendo encordaciones" }
         return encordarRepository.findAll().flowOn(Dispatchers.IO)
     }
 
-    suspend fun createEncordacion(item: Encordar): Encordar {
+    suspend fun createEncordados(item: Encordar): Encordar {
         logger.debug { "Creando $item" }
         encordarRepository.save(item)
         return item
     }
 
-    suspend fun getEncordacionById(id: Id<Encordar>): Encordar? {
-        logger.debug { "Buscando $id" }
+    suspend fun getEncordadoById(id: Id<Encordar>): Encordar? {
+        logger.debug { "Buscando encordados por $id" }
         return encordarRepository.findByID(id)
     }
 
-    suspend fun updateEncordacion(item: Encordar) {
-        logger.debug { "Update $item" }
+    suspend fun updateEncordado(item: Encordar) {
+        logger.debug { "Actualizando $item" }
         encordarRepository.save(item)
     }
 
-    suspend fun deleteEncordacion(item: Encordar): Boolean {
+    suspend fun deleteEncordado(item: Encordar): Boolean {
         logger.debug { "Borrando $item" }
         return encordarRepository.delete(item)
     }

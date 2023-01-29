@@ -12,6 +12,9 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
+/**
+ * Cliente KtorFit donde se le indica la url del API a consultar
+ */
 object KtorFitClient {
 
     private const val API_URL = "https://jsonplaceholder.typicode.com/"

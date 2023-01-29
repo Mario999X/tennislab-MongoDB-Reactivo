@@ -15,8 +15,8 @@ import repositories.personalizar.PersonalizarRepository
 private val logger = KotlinLogging.logger { }
 
 /**
- * Controlador encargado de la accion "Encordar" usando un repositorio
- * @property personalizarRepository
+ * Controlador al que se le pasa un repositorio, el cual contiene el CRUD para las personalizaciones
+ * @param personalizarRepository
  */
 @Single
 class PersonalizarController(
