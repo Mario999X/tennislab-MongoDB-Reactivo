@@ -20,6 +20,8 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    testImplementation("io.mockk:mockk:1.12.4")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
     // Kmongo
     implementation("org.litote.kmongo:kmongo-async:4.7.2")
     implementation("org.litote.kmongo:kmongo-coroutine:4.7.2")

@@ -342,15 +342,34 @@ class AppMongo : KoinComponent {
     // Si faltan los IF puede dar un aviso en la ejecucion
     suspend fun limpiarDatos() = withContext(Dispatchers.IO) {
         logger.debug { "Borrando datos de la base de datos" }
-        MongoDbManager.database.getCollection<Producto>().drop()
-        MongoDbManager.database.getCollection<Adquisicion>().drop()
-        MongoDbManager.database.getCollection<Encordar>().drop()
-        MongoDbManager.database.getCollection<Personalizar>().drop()
-        MongoDbManager.database.getCollection<Encordadora>().drop()
-        MongoDbManager.database.getCollection<Personalizadora>().drop()
-        MongoDbManager.database.getCollection<Usuario>().drop()
-        MongoDbManager.database.getCollection<Tarea>().drop()
-        MongoDbManager.database.getCollection<Pedido>().drop()
+        if (MongoDbManager.database.getCollection<Producto>().countDocuments() > 0) {
+            MongoDbManager.database.getCollection<Producto>().drop()
+        }
+        if (MongoDbManager.database.getCollection<Adquisicion>().countDocuments() > 0) {
+            MongoDbManager.database.getCollection<Adquisicion>().drop()
+        }
+        if (MongoDbManager.database.getCollection<Encordar>().countDocuments() > 0) {
+            MongoDbManager.database.getCollection<Encordar>().drop()
+        }
+        if (MongoDbManager.database.getCollection<Personalizar>().countDocuments() > 0) {
+            MongoDbManager.database.getCollection<Personalizar>().drop()
+        }
+        if (MongoDbManager.database.getCollection<Encordadora>().countDocuments() > 0) {
+            MongoDbManager.database.getCollection<Encordadora>().drop()
+        }
+        if (MongoDbManager.database.getCollection<Personalizadora>().countDocuments() > 0) {
+            MongoDbManager.database.getCollection<Personalizadora>().drop()
+        }
+        if (MongoDbManager.database.getCollection<Usuario>().countDocuments() > 0) {
+            MongoDbManager.database.getCollection<Usuario>().drop()
+        }
+        if (MongoDbManager.database.getCollection<Tarea>().countDocuments() > 0) {
+            MongoDbManager.database.getCollection<Tarea>().drop()
+        }
+        if (MongoDbManager.database.getCollection<Pedido>().countDocuments() > 0) {
+            MongoDbManager.database.getCollection<Pedido>().drop()
+        }
+
     }
 }
 
