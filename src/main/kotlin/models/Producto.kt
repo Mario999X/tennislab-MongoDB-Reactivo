@@ -9,15 +9,21 @@ import org.litote.kmongo.newId
 import java.util.*
 
 @Serializable
-class Raqueta(
+class Producto(
     @BsonId @Contextual
-    val id: Id<Raqueta> = newId(),
+    val id: Id<Producto> = newId(),
     @Contextual
     val uuid: UUID = UUID.randomUUID(),
+    val tipo: Tipo,
     val descripcion: String, // marca + modelo
-)
-{
+    val stock: Int,
+    var precio: Double
+) {
     override fun toString(): String {
         return ObjectMapper().writeValueAsString(this)
     }
 }
+
+enum class Tipo { RAQUETA, CORDAJE, COMPLEMENTO }
+
+

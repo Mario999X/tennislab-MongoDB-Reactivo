@@ -6,8 +6,8 @@ package db
 import models.*
 import models.maquina.Encordadora
 import models.maquina.Personalizadora
-import models.producto.Producto
-import models.producto.Tipo
+import models.Producto
+import models.Tipo
 import java.time.LocalDate
 
 fun getProductoInit() = listOf(
@@ -38,19 +38,19 @@ fun getAdquisicionInit() = listOf(
 
 fun getEncordaciones() = listOf(
     Encordar(
-        informacionEndordado = "HOLA"
+        informacionEndordado = "Dato1"
     ),
     Encordar(
-        informacionEndordado = "ADIOS"
+        informacionEndordado = "Dato2"
     )
 )
 
 fun getPersonalizaciones() = listOf(
     Personalizar(
-        informacionPersonalizacion = "HOLA"
+        informacionPersonalizacion = "Dato1"
     ),
     Personalizar(
-        informacionPersonalizacion = "ADIOS"
+        informacionPersonalizacion = "Dato2"
     )
 )
 

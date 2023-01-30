@@ -1,8 +1,8 @@
 package models
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-import models.producto.Producto
 import org.bson.codecs.pojo.annotations.BsonId
 import org.litote.kmongo.Id
 import org.litote.kmongo.newId
@@ -22,6 +22,6 @@ class Adquisicion(
 // Tarea?
 ) {
     override fun toString(): String {
-        return "Adquisicion(id=$id, uuid=$uuid, cantidad=$cantidad, producto=$producto, precio=$precio)"
+        return ObjectMapper().writeValueAsString(this)
     }
 }

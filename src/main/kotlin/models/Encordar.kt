@@ -1,5 +1,6 @@
 package models
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
@@ -18,6 +19,6 @@ class Encordar(
 // Tarea
 ) {
     override fun toString(): String {
-        return "Encordar(id=$id, uuid=$uuid, informacionEndordado='$informacionEndordado', precio=$precio)"
+        return ObjectMapper().writeValueAsString(this)
     }
 }

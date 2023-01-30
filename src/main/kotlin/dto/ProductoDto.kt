@@ -1,10 +1,11 @@
 package dto
 
 import kotlinx.serialization.Serializable
-import models.producto.Producto
+import models.Producto
 
 @Serializable
 data class ProductoDto(
+    val id: String,
     val tipo: String,
     val descripcion: String,
     val stock: String,
@@ -14,6 +15,7 @@ data class ProductoDto(
 
 fun Producto.toProductoDto(): ProductoDto {
     return ProductoDto(
+        id = id.toString(),
         tipo = tipo.name,
         descripcion,
         stock = stock.toString(),

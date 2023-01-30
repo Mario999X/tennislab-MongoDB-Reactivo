@@ -1,5 +1,6 @@
 package models
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
@@ -26,6 +27,6 @@ class Tarea(
     var raqueta: Raqueta? = null
 ) {
     override fun toString(): String {
-        return "Tarea(id=$id, uuid=$uuid, adquisicion=$adquisicion, personalizar=$personalizar, encordar=$encordar, precio=$precio, usuario=$usuario, raqueta=$raqueta)"
+        return ObjectMapper().writeValueAsString(this)
     }
 }
