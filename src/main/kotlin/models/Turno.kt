@@ -1,5 +1,6 @@
 package models
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
@@ -16,5 +17,10 @@ class Turno(
     var horario: TipoHorario,
     var trabajador: Usuario
 )
+{
+    override fun toString(): String {
+        return ObjectMapper().writeValueAsString(this)
+    }
+}
 
 enum class TipoHorario { TEMPRANO, TARDE }

@@ -1,5 +1,6 @@
 package models
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
@@ -19,7 +20,7 @@ class Usuario(
     var perfil: Perfil
 ) {
     override fun toString(): String {
-        return "Usuario(id=$id, uuid=$uuid, name='$name', email='$email', password=$password, raqueta=$raqueta, perfil=$perfil)"
+        return ObjectMapper().writeValueAsString(this)
     }
 }
 

@@ -1,5 +1,6 @@
 package models.maquina
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import models.Turno
 import org.litote.kmongo.Id
 import org.litote.kmongo.newId
@@ -16,10 +17,8 @@ class Encordadora(
     var isManual: Boolean,
     var tensionMax: Double,
     var tensionMin: Double,
-
-    // TURNO?
 ) : Maquina(id, uuid, descripcion, fechaAdquisicion, numSerie, turno) {
     override fun toString(): String {
-        return "Encordadora(isManual=$isManual, tensionMax=$tensionMax, tensionMin=$tensionMin)"
+        return ObjectMapper().writeValueAsString(this)
     }
 }

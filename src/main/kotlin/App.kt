@@ -9,7 +9,6 @@ import kotlinx.coroutines.reactive.collect
 import models.*
 import models.maquina.Encordadora
 import models.maquina.Personalizadora
-import models.producto.Producto
 import mu.KotlinLogging
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

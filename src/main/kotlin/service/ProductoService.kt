@@ -5,7 +5,7 @@ package service
  */
 import com.mongodb.reactivestreams.client.ChangeStreamPublisher
 import db.MongoDbManager
-import models.producto.Producto
+import models.Producto
 import mu.KotlinLogging
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
