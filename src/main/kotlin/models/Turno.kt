@@ -14,9 +14,7 @@ class Turno(
     @Contextual
     val uuid: UUID = UUID.randomUUID(),
     var horario: TipoHorario,
-    // Encordadora?
-// Personalizadora?
-// Trabajador
+    var trabajador: Usuario
 )
 
 enum class TipoHorario { TEMPRANO, TARDE }

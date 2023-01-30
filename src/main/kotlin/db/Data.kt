@@ -6,6 +6,8 @@ package db
 import models.*
 import models.maquina.Encordadora
 import models.maquina.Personalizadora
+import models.producto.Producto
+import models.producto.Tipo
 import java.time.LocalDate
 
 fun getProductoInit() = listOf(

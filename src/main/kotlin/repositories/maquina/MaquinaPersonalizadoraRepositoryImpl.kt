@@ -6,6 +6,7 @@ package repositories.maquina
 import db.MongoDbManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
+import models.Perfil
 import models.maquina.Maquina
 import models.maquina.Personalizadora
 import mu.KotlinLogging
@@ -30,6 +31,10 @@ class MaquinaPersonalizadoraRepositoryImpl : MaquinaPersonalizadoraRepository {
 
     override suspend fun save(entity: Personalizadora): Personalizadora {
         logger.debug { "save($entity)" }
+        if (entity.turno?.trabajador?.perfil != Perfil.ENCORDADOR && entity.turno != null) {
+            System.err.println("Problema al crear el turno, el usuario debe de ser de tipo ${Perfil.ENCORDADOR}")
+            entity.turno = null
+        }
         return MongoDbManager.database.getCollection<Personalizadora>().save(entity).let { entity }
     }
 

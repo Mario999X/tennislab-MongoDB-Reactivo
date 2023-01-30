@@ -1,4 +1,4 @@
-package models
+package models.producto
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable

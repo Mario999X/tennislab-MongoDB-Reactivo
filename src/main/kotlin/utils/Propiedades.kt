@@ -13,7 +13,7 @@ import java.util.*
 object Propiedades {
     /**
      * Método genérico que lee propiedades de un archivo Properties()
-     * @param String Nombre del archivo a leer
+     * @param propertiesFile Nombre del archivo a leer
      * @return Devuelve el archivo especificado para obtener los datos deseados
      */
     fun propertiesReader(propertiesFile: String): Properties {

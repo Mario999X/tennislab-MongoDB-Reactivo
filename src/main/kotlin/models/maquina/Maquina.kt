@@ -2,6 +2,7 @@ package models.maquina
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import models.Turno
 import org.bson.codecs.pojo.annotations.BsonId
 import org.litote.kmongo.Id
 import java.util.*
@@ -14,10 +15,11 @@ open class Maquina(
     val uuid: UUID,
     val descripcion: String, // marca + modelo
     var fechaAdquisicion: String,
-    var numSerie: Long
+    var numSerie: Long,
+    var turno: Turno?
 
 ) {
     override fun toString(): String {
-        return "Maquina(id=$id, uuid=$uuid, descripcion='$descripcion', fechaAdquisicion='$fechaAdquisicion', numSerie=$numSerie)"
+        return "Maquina(id=$id, uuid=$uuid, descripcion='$descripcion', fechaAdquisicion='$fechaAdquisicion', numSerie=$numSerie, turno=$turno)"
     }
 }

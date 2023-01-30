@@ -6,6 +6,7 @@ package controllers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import models.Perfil
 import models.maquina.Encordadora
 import models.maquina.Maquina
 import mu.KotlinLogging
@@ -28,6 +29,10 @@ class MaquinaEncordadoraController(private val maquinaEncordadoraRepository: Maq
 
     suspend fun createEncordadora(item: Encordadora): Encordadora {
         logger.debug { "Creando $item)" }
+        if (item.turno?.trabajador?.perfil != Perfil.ENCORDADOR && item.turno != null) {
+            System.err.println("Problema al crear el turno, el usuario debe de ser de tipo ${Perfil.ENCORDADOR}")
+            item.turno = null
+        }
         maquinaEncordadoraRepository.save(item)
         return item
     }
@@ -39,6 +44,10 @@ class MaquinaEncordadoraController(private val maquinaEncordadoraRepository: Maq
 
     suspend fun updateEncordadora(item: Encordadora) {
         logger.debug { "Actualizando $item" }
+        if (item.turno?.trabajador?.perfil != Perfil.ENCORDADOR && item.turno != null) {
+            System.err.println("Problema al crear el turno, el usuario debe de ser de tipo ${Perfil.ENCORDADOR}")
+            item.turno = null
+        }
         maquinaEncordadoraRepository.save(item)
     }
 
