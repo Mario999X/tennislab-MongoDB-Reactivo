@@ -28,13 +28,13 @@ internal class ProductoControllerTest {
     )
 
     @MockK
-    lateinit var productosRepository: ProductosRepository
+    private lateinit var productosRepository: ProductosRepository
 
     @MockK
-    lateinit var productoService: ProductoService
+    private lateinit var productoService: ProductoService
 
     @InjectMockKs
-    lateinit var productoController: ProductoController
+    private lateinit var productoController: ProductoController
 
     init {
         MockKAnnotations.init(this)
@@ -85,28 +85,6 @@ internal class ProductoControllerTest {
         )
 
         coVerify(exactly = 1) { productosRepository.findByID(producto.id) }
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun updateProducto() = runTest {
-/*        coEvery { productosRepository.save(producto) } returns producto
-        val pro = async { productoController.createProducto(producto) }
-
-        val product = pro.await()
-
-        val res = productoController.getProductoById(product.id)
-        println("❤❤❤❤❤❤❤❤$res")
-
-        res!!.precio += 1.0
-
-        productoController.updateProducto(res!!)
-
-        assertAll(
-            { assertNotEquals(producto.precio, res.precio) }
-        )
-
-        coVerify(exactly = 1) { productosRepository.save(producto) }*/
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

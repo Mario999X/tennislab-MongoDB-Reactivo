@@ -27,7 +27,7 @@ private val logger = KotlinLogging.logger { }
  */
 @Single
 class MaquinaPersonalizadoraController(private val maquinaPersonalizadoraRepository: MaquinaPersonalizadoraRepository) {
-    fun getPersonalizadora(): Flow<Personalizadora> {
+    fun getPersonalizadoras(): Flow<Personalizadora> {
         logger.debug { "Obteniendo máquinas personalizadoras" }
         val response = maquinaPersonalizadoraRepository.findAll().flowOn(Dispatchers.IO)
         println(Json.encodeToString(ResponseSuccess(200, response.toString())))

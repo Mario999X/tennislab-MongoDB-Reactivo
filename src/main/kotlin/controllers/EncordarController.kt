@@ -36,7 +36,7 @@ class EncordarController(
         return response
     }
 
-    suspend fun createEncordados(item: Encordar): Encordar {
+    suspend fun createEncordado(item: Encordar): Encordar {
         logger.debug { "Creando $item" }
         encordarRepository.save(item)
 

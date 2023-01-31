@@ -61,7 +61,7 @@ class APIController(
         return@withContext response
     }
 
-    suspend fun saveUsuario(entity: Usuario) = withContext(Dispatchers.IO) {
+    suspend fun saveUsuario(entity: Usuario): Usuario = withContext(Dispatchers.IO) {
         launch {
             val response = usuariosCacheRepositoryImpl.save(entity)
             println(Json.encodeToString(ResponseSuccess(201, response.toUsuarioDto())))
@@ -72,6 +72,8 @@ class APIController(
             println(Json.encodeToString(ResponseSuccess(201, response.toUsuarioDto())))
         }
         joinAll()
+
+        return@withContext entity
     }
 
     suspend fun getUsuarioById(id: Id<Usuario>): Usuario? {
@@ -111,7 +113,7 @@ class APIController(
         return@withContext response
     }
 
-    suspend fun saveTarea(entity: Tarea) = withContext(Dispatchers.IO) {
+    suspend fun saveTarea(entity: Tarea): Tarea = withContext(Dispatchers.IO) {
         if (entity.usuario.perfil == Perfil.ENCORDADOR) {
             launch {
                 tareasKtorFitRepository.save(entity)
@@ -132,6 +134,7 @@ class APIController(
                 )
             )
         )
+        return@withContext entity
     }
 
     suspend fun getTareaById(id: Id<Tarea>): Tarea? {
