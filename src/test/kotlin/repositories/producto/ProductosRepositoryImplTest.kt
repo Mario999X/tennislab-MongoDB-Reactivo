@@ -1,14 +1,18 @@
 package repositories.producto
 
+import db.MongoDbManager
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.junit5.MockKExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
-import models.producto.Producto
-import models.producto.Tipo
+import models.Producto
+import models.Tipo
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -26,12 +30,29 @@ internal class ProductosRepositoryImplTest {
     )
 
     @InjectMockKs
-    lateinit var productosRepository: ProductosRepositoryImpl
+    private lateinit var productosRepository: ProductosRepositoryImpl
 
     init {
         MockKAnnotations.init(this)
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @BeforeAll
+    fun setUp() = runTest {
+        MongoDbManager.database.getCollection<Producto>().drop()
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @AfterAll
+    fun tearDown() = runTest {
+        MongoDbManager.database.getCollection<Producto>().drop()
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @BeforeEach
+    fun beforeEach() = runTest {
+        productosRepository.save(producto)
+    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test

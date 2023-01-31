@@ -5,12 +5,13 @@ import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
 import org.litote.kmongo.Id
+import org.litote.kmongo.newId
 import java.util.*
 
 @Serializable
 class Usuario(
     @BsonId @Contextual
-    val id: Id<Usuario>,
+    val id: Id<Usuario> = newId(),
     @Contextual
     val uuid: UUID = UUID.randomUUID(),
     var name: String,

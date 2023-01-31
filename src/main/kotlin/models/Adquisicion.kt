@@ -19,7 +19,6 @@ class Adquisicion(
     val producto: Producto,
     val precio: Double = CalculoPrecioTarea.calculatePrecio(producto.precio, null, null) * cantidad
 
-// Tarea?
 ) {
     override fun toString(): String {
         return ObjectMapper().writeValueAsString(this)
