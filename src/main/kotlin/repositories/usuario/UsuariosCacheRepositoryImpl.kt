@@ -14,7 +14,9 @@ import service.cache.UsuariosCache
  * Repositorio de la caché, realiza operaciones CRUD básicas
  *@property UsuarioRepository
  */
-class UsuariosCacheRepositoryImpl : UsuarioRepository {
+class UsuariosCacheRepositoryImpl(
+
+) : UsuarioRepository {
 
     private val cacheUsuarios = UsuariosCache()
     private var refreshJob: Job? = null
@@ -60,7 +62,7 @@ class UsuariosCacheRepositoryImpl : UsuarioRepository {
         return usuario
     }
 
-    private fun refreshCache() {
+    fun refreshCache() {
         if (refreshJob != null) refreshJob?.cancel()
 
         refreshJob = CoroutineScope(Dispatchers.IO).launch {

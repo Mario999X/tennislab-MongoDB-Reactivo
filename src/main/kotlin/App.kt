@@ -119,7 +119,7 @@ class AppMongo : KoinComponent {
             //Encordados
             val encordacionesInit = getEncordaciones()
             encordacionesInit.forEach { encordacion ->
-                encordarController.createEncordados(encordacion)
+                encordarController.createEncordado(encordacion)
             }
             encordadosList.clear()
             encordarController.getEncordados().collect { encordacion ->
@@ -161,7 +161,7 @@ class AppMongo : KoinComponent {
                 maquinaPersonalizadoraController.createPersonalizadora(maquinas)
             }
             maquinaPersonalizadoraList.clear()
-            maquinaPersonalizadoraController.getPersonalizadora().collect { personalizadoras ->
+            maquinaPersonalizadoraController.getPersonalizadoras().collect { personalizadoras ->
                 maquinaPersonalizadoraList.add(personalizadoras)
             }
             maquinaPersonalizadoraList.forEach { maquinas ->

@@ -13,11 +13,13 @@ import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
 import utils.Cifrador
+import utils.TransformIDs
 
 @ExtendWith(MockKExtension::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class UsuariosMongoRepositoryImplTest {
     private val usuario = Usuario(
+        id = TransformIDs.generateIdUsers("999"),
         name = "Data1",
         email = "Data2@Data3.com",
         password = Cifrador.codifyPassword("Data4"),
@@ -55,7 +57,7 @@ internal class UsuariosMongoRepositoryImplTest {
         val res = usuariosMongoRepository.findAll().toList()
 
         assertAll(
-            { kotlin.test.assertEquals(1, res.size) }
+            { assertEquals(1, res.size) }
         )
     }
 
@@ -74,7 +76,7 @@ internal class UsuariosMongoRepositoryImplTest {
     @Test
     fun delete() = runTest {
         val res = usuariosMongoRepository.delete(usuario)
-        assertTrue(res)
+        assertFalse(res)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

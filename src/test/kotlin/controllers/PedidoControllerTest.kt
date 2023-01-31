@@ -1,22 +1,28 @@
-package repositories.pedido
+package controllers
 
 import db.MongoDbManager
-import io.mockk.MockKAnnotations
+import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import models.*
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
+import repositories.pedido.PedidoRepository
 import utils.Cifrador
 import java.time.LocalDateTime
 
 @ExtendWith(MockKExtension::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class PedidoRepositoryImplTest {
+internal class PedidoControllerTest {
     private val pedido = Pedido(
         estadoPedido = EstadoPedido.PROCESANDO,
         fechaEntrada = LocalDateTime.now().toString(),
@@ -30,8 +36,11 @@ internal class PedidoRepositoryImplTest {
         tareas = listOf()
     )
 
+    @MockK
+    private lateinit var pedidoRepository: PedidoRepository
+
     @InjectMockKs
-    private lateinit var pedidoRepository: PedidoRepositoryImpl
+    private lateinit var pedidoController: PedidoController
 
     init {
         MockKAnnotations.init(this)
@@ -50,46 +59,47 @@ internal class PedidoRepositoryImplTest {
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    @BeforeEach
-    fun beforeEach() = runTest {
-        pedidoRepository.save(pedido)
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun findAll() = runTest {
-        val res = pedidoRepository.findAll().toList()
-
+    fun getPedidos() = runTest {
+        every { pedidoRepository.findAll() } returns flowOf(pedido)
+        val res = pedidoController.getPedidos().toList()
         assertAll(
-            { kotlin.test.assertEquals(1, res.size) }
+            { assertEquals(1, res.size) }
         )
+        verify(exactly = 1) { pedidoRepository.findAll() }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun findByID() = runTest {
-        val find = pedidoRepository.findAll().toList()
-        val res = pedidoRepository.findByID(find[0].id)
-
+    fun createPedido() = runTest {
+        coEvery { pedidoRepository.save(pedido) } returns pedido
+        val res = pedidoController.createPedido(pedido)
         assertAll(
-            { assertEquals(pedido.estadoPedido, res!!.estadoPedido) }
+            { assertEquals(res.precio, pedido.precio) }
         )
+
+        coVerify(exactly = 1) { pedidoRepository.save(pedido) }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun save() = runTest {
-        val res = pedidoRepository.save(pedido)
-
+    fun getPedidoById() = runTest {
+        coEvery { pedidoRepository.findByID(pedido.id) } returns pedido
+        val res = pedidoController.getPedidoById(pedido.id)
         assertAll(
-            { assertEquals(pedido.estadoPedido, res.estadoPedido) }
+            { assertEquals(res!!.precio, pedido.precio) }
         )
+
+        coVerify(exactly = 1) { pedidoRepository.findByID(pedido.id) }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun delete() = runTest {
-        val res = pedidoRepository.delete(pedido)
+    fun deletePedido() = runTest {
+        coEvery { pedidoRepository.delete(pedido) } returns true
+
+        val res = pedidoController.deletePedido(pedido)
         assertTrue(res)
+        coVerify(exactly = 1) { pedidoRepository.delete(pedido) }
     }
 }

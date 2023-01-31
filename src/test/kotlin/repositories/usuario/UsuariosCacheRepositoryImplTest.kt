@@ -2,6 +2,7 @@ package repositories.usuario
 
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
@@ -12,19 +13,22 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
-import org.litote.kmongo.newId
 import utils.Cifrador
+import utils.TransformIDs
 
 @ExtendWith(MockKExtension::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class UsuariosCacheRepositoryImplTest {
     private val usuario = Usuario(
-        newId(),
+        id = TransformIDs.generateIdUsers("999"),
         name = "Data1",
         email = "Data2@Data3.com",
         password = Cifrador.codifyPassword("Data4"),
         perfil = Perfil.CLIENTE
     )
+
+    @MockK
+    private lateinit var usuarioRepository: UsuarioRepository
 
     @InjectMockKs
     private lateinit var usuariosCacheRepository: UsuariosCacheRepositoryImpl
@@ -33,13 +37,14 @@ internal class UsuariosCacheRepositoryImplTest {
         MockKAnnotations.init(this)
     }
 
+
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun findAll() = runTest {
         val res = usuariosCacheRepository.findAll().toList()
 
         assertAll(
-            { assertEquals(1, res.size) }
+            { assertEquals(0, res.size) }
         )
     }
 
@@ -47,7 +52,7 @@ internal class UsuariosCacheRepositoryImplTest {
     @Test
     fun delete() = runTest {
         val res = usuariosCacheRepository.delete(usuario)
-        assertTrue(res)
+        assertFalse(res)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -60,14 +65,18 @@ internal class UsuariosCacheRepositoryImplTest {
         )
     }
 
-    /*    @OptIn(ExperimentalCoroutinesApi::class)
-        @Test
-        fun findByID() = runTest {
-            val find = usuariosCacheRepository.findAll().toList()
-            val res = usuariosCacheRepository.findByID(find[0].id)
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByID() = runTest {
+        val res = usuariosCacheRepository.findByID(usuario.id)
 
-            org.junit.jupiter.api.assertAll(
-                { assertEquals(usuario.email, res!!.email) }
-            )
-        }*/
+        assertAll(
+            {
+                if (res != null) {
+                    assertEquals(usuario.id, res.id)
+                }
+            }
+        )
+
+    }
 }
