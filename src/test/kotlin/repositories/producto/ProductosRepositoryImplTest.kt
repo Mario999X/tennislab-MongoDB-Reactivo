@@ -30,7 +30,7 @@ internal class ProductosRepositoryImplTest {
     )
 
     @InjectMockKs
-    lateinit var productosRepository: ProductosRepositoryImpl
+    private lateinit var productosRepository: ProductosRepositoryImpl
 
     init {
         MockKAnnotations.init(this)

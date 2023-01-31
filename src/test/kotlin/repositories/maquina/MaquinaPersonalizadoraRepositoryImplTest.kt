@@ -1,4 +1,4 @@
-package repositories.adquisicion
+package repositories.maquina
 
 import db.MongoDbManager
 import io.mockk.MockKAnnotations
@@ -7,29 +7,26 @@ import io.mockk.junit5.MockKExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
-import models.Adquisicion
-import models.Producto
-import models.Tipo
+import models.maquina.Personalizadora
 import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
+import java.time.LocalDate
 
 @ExtendWith(MockKExtension::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class AdquisicionRepositoryImplTest {
-    private val adquisicion = Adquisicion(
-        cantidad = 1,
-        producto = Producto(
-            tipo = Tipo.RAQUETA,
-            descripcion = "Babolat Pure Air",
-            stock = 3,
-            precio = 345.95
-        ),
+internal class MaquinaPersonalizadoraRepositoryImplTest {
+    private val personalizadora = Personalizadora(
+        descripcion = "Toshiba ABC",
+        fechaAdquisicion = LocalDate.now().toString(),
+        numSerie = 540L,
+        maniobrabilidad = true,
+        balance = false,
+        rigidez = false
     )
 
     @InjectMockKs
-    private lateinit var adquisicionRepository: AdquisicionRepositoryImpl
+    private lateinit var personalizadoraRepository: MaquinaPersonalizadoraRepositoryImpl
 
     init {
         MockKAnnotations.init(this)
@@ -38,56 +35,56 @@ internal class AdquisicionRepositoryImplTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @BeforeAll
     fun setUp() = runTest {
-        MongoDbManager.database.getCollection<Adquisicion>().drop()
+        MongoDbManager.database.getCollection<Personalizadora>().drop()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @AfterAll
     fun tearDown() = runTest {
-        MongoDbManager.database.getCollection<Adquisicion>().drop()
+        MongoDbManager.database.getCollection<Personalizadora>().drop()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @BeforeEach
     fun beforeEach() = runTest {
-        adquisicionRepository.save(adquisicion)
+        personalizadoraRepository.save(personalizadora)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun findAll() = runTest {
-        val res = adquisicionRepository.findAll().toList()
+        val res = personalizadoraRepository.findAll().toList()
 
         assertAll(
-            { assertEquals(1, res.size) }
+            { kotlin.test.assertEquals(1, res.size) }
         )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun findByID() = runTest {
-        val find = adquisicionRepository.findAll().toList()
-        val res = adquisicionRepository.findByID(find[0].id)
+        val find = personalizadoraRepository.findAll().toList()
+        val res = personalizadoraRepository.findByID(find[0].id)
 
         assertAll(
-            { assertEquals(adquisicion.precio, res!!.precio) }
+            { assertEquals(personalizadora.descripcion, res!!.descripcion) }
         )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun save() = runTest {
-        val res = adquisicionRepository.save(adquisicion)
+        val res = personalizadoraRepository.save(personalizadora)
 
         assertAll(
-            { assertEquals(adquisicion.precio, res.precio) }
+            { assertEquals(personalizadora.descripcion, res.descripcion) }
         )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun delete() = runTest {
-        val res = adquisicionRepository.delete(adquisicion)
+        val res = personalizadoraRepository.delete(personalizadora)
         assertTrue(res)
     }
 }

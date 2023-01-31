@@ -1,4 +1,4 @@
-package repositories.adquisicion
+package repositories.maquina
 
 import db.MongoDbManager
 import io.mockk.MockKAnnotations
@@ -7,29 +7,27 @@ import io.mockk.junit5.MockKExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
-import models.Adquisicion
-import models.Producto
-import models.Tipo
+import models.maquina.Encordadora
 import org.junit.jupiter.api.*
+
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
+import java.time.LocalDate
 
 @ExtendWith(MockKExtension::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class AdquisicionRepositoryImplTest {
-    private val adquisicion = Adquisicion(
-        cantidad = 1,
-        producto = Producto(
-            tipo = Tipo.RAQUETA,
-            descripcion = "Babolat Pure Air",
-            stock = 3,
-            precio = 345.95
-        ),
+internal class MaquinaEncordadoraRepositoryImplTest {
+    private val encordadora = Encordadora(
+        descripcion = "Toshiba ABC",
+        fechaAdquisicion = LocalDate.now().toString(),
+        numSerie = 120L,
+        isManual = true,
+        tensionMax = 23.2,
+        tensionMin = 20.5
     )
 
     @InjectMockKs
-    private lateinit var adquisicionRepository: AdquisicionRepositoryImpl
+    private lateinit var encordadoraRepository: MaquinaEncordadoraRepositoryImpl
 
     init {
         MockKAnnotations.init(this)
@@ -38,56 +36,56 @@ internal class AdquisicionRepositoryImplTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @BeforeAll
     fun setUp() = runTest {
-        MongoDbManager.database.getCollection<Adquisicion>().drop()
+        MongoDbManager.database.getCollection<Encordadora>().drop()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @AfterAll
     fun tearDown() = runTest {
-        MongoDbManager.database.getCollection<Adquisicion>().drop()
+        MongoDbManager.database.getCollection<Encordadora>().drop()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @BeforeEach
     fun beforeEach() = runTest {
-        adquisicionRepository.save(adquisicion)
+        encordadoraRepository.save(encordadora)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun findAll() = runTest {
-        val res = adquisicionRepository.findAll().toList()
+        val res = encordadoraRepository.findAll().toList()
 
         assertAll(
-            { assertEquals(1, res.size) }
+            { kotlin.test.assertEquals(1, res.size) }
         )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun findByID() = runTest {
-        val find = adquisicionRepository.findAll().toList()
-        val res = adquisicionRepository.findByID(find[0].id)
+        val find = encordadoraRepository.findAll().toList()
+        val res = encordadoraRepository.findByID(find[0].id)
 
         assertAll(
-            { assertEquals(adquisicion.precio, res!!.precio) }
+            { assertEquals(encordadora.isManual, res!!.isManual) }
         )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun save() = runTest {
-        val res = adquisicionRepository.save(adquisicion)
+        val res = encordadoraRepository.save(encordadora)
 
         assertAll(
-            { assertEquals(adquisicion.precio, res.precio) }
+            { assertEquals(encordadora.isManual, res.isManual) }
         )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun delete() = runTest {
-        val res = adquisicionRepository.delete(adquisicion)
-        assertTrue(res)
+        val res = encordadoraRepository.delete(encordadora)
+        kotlin.test.assertTrue(res)
     }
 }
