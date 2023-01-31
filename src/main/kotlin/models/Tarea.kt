@@ -23,7 +23,7 @@ class Tarea(
         personalizar?.precio,
         encordar?.precio
     ),
-    var usuario: Usuario, // En el controlador se maneja que solo pueda ser de tipo ENCORDADOR
+    var usuario: Usuario,
     var raqueta: Raqueta? = null
 ) {
     override fun toString(): String {

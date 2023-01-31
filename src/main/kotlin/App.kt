@@ -306,14 +306,14 @@ class AppMongo : KoinComponent {
                 fechaEntrada = LocalDateTime.now().toString(),
                 fechaProgramada = LocalDateTime.now().plusDays(10).toString(),
                 cliente = apiController.getUsuarioById(listadoUsers[0].id)!!,
-                tareas = apiController.getAllTareas().toList()
+                tareas = listOf(tarea1, tarea2)
             )
             val pedido2 = Pedido(
                 estadoPedido = EstadoPedido.TERMINADO,
                 fechaEntrada = LocalDateTime.now().minusDays(5).toString(),
                 fechaProgramada = LocalDateTime.now().plusDays(7).toString(),
                 cliente = apiController.getUsuarioById(listadoUsers[0].id)!!,
-                tareas = apiController.getAllTareas().toList()
+                tareas = listOf(tarea2)
             )
             // Create
             pedidoController.createPedido(pedido)
@@ -338,7 +338,6 @@ class AppMongo : KoinComponent {
         escuchadorProducto.cancel()
     }
 
-    // Si faltan los IF puede dar un aviso en la ejecucion
     suspend fun limpiarDatos() = withContext(Dispatchers.IO) {
         logger.debug { "Borrando datos de la base de datos" }
         if (MongoDbManager.database.getCollection<Producto>().countDocuments() > 0) {

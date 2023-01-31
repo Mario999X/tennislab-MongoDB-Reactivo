@@ -17,9 +17,10 @@ class Pedido(
     var estadoPedido: EstadoPedido,
     val fechaEntrada: String,
     val fechaProgramada: String,
-    var fechaSalida: String? = null, // esta es actualizable
+    var fechaSalida: String? = null,
     var cliente: Usuario,
-    var tareas: List<Tarea>
+    var tareas: List<Tarea>,
+    val precio: Double = tareas.sumOf { it.precio }
 ){
     override fun toString(): String {
         return ObjectMapper().writeValueAsString(this)

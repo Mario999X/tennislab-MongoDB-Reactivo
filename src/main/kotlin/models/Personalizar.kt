@@ -14,9 +14,8 @@ class Personalizar(
     val id: Id<Personalizar> = newId(),
     @Contextual
     val uuid: UUID = UUID.randomUUID(),
-    var informacionPersonalizacion: String, // Igual que en Encordar
+    var informacionPersonalizacion: String,
     val precio: Double = 60.0
-// Tarea
 ) {
     override fun toString(): String {
         return ObjectMapper().writeValueAsString(this)

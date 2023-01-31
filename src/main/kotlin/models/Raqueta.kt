@@ -14,7 +14,7 @@ class Raqueta(
     val id: Id<Raqueta> = newId(),
     @Contextual
     val uuid: UUID = UUID.randomUUID(),
-    val descripcion: String, // marca + modelo
+    val descripcion: String
 )
 {
     override fun toString(): String {

@@ -15,7 +15,7 @@ class Producto(
     @Contextual
     val uuid: UUID = UUID.randomUUID(),
     val tipo: Tipo,
-    val descripcion: String, // marca + modelo
+    val descripcion: String,
     val stock: Int,
     var precio: Double
 ) {

@@ -14,9 +14,8 @@ class Encordar(
     val id: Id<Encordar> = newId(),
     @Contextual
     val uuid: UUID = UUID.randomUUID(),
-    var informacionEndordado: String, // Aqui ponemos el texto que haga falta
-    val precio: Double = 15.0 // Necesitamos el precio individual
-// Tarea
+    var informacionEndordado: String,
+    val precio: Double = 15.0
 ) {
     override fun toString(): String {
         return ObjectMapper().writeValueAsString(this)
