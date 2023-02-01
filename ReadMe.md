@@ -6,7 +6,7 @@ Proyecto de gestión de base de datos de una tienda de raquetas para la asignatu
 
 # Versión MongoDB
 
-## [Versión MongoDB + Spring Data](https://github.com/Mario999X/tennislab-MongoDB-SpringData-Reactivo/tree/master)
+## [Versión MongoDB + Spring Data](https://github.com/Mario999X/tennislab-MongoDB-SpringData-Reactivo)
 
 ## [Vídeo de presentación]
 
@@ -24,7 +24,7 @@ Proyecto de gestión de base de datos de una tienda de raquetas para la asignatu
 
 Para la realización de este proyecto, se puso de requisito diseñarla usando MongoDB de manera reactiva.
 
-La **documentación** se encuentra en el directorio **"documentation"** en la raiz del proyecto, además del enunciado del
+La **documentación** se encuentra en el directorio **"documentation"** en la raíz del proyecto, además del enunciado del
 problema.
 
 El primer paso fue el diseño del *diagrama de clases*, cuyo resultado final fue el siguiente:
@@ -114,7 +114,7 @@ Hemos configurado el proyecto para que, una vez construido, tengamos un jar que 
 
 Además, hemos usado **Jackson** para visualizar los elementos de la terminal en formato *JSON*.
 
-Para ver los resultados de ejecución, ademas de la implementacion de mensajes por terminal, hemos usado la propia
+Para ver los resultados de ejecución, ademas de la implementación de mensajes por terminal, hemos usado la propia
 página de *MongoDB Atlas*, o el plugin *MongoDB* de **Visual Studio Code** para visualizar
 los cambios sobre la base de datos.
 
