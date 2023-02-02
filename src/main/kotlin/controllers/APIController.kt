@@ -122,7 +122,7 @@ class APIController(
 
             launch {
                 tareasKtorFitRepository.uploadTarea(entity)
-                println(println(Json.encodeToString(ResponseSuccess(201, entity.toTareaDto()))))
+                println(Json.encodeToString(ResponseSuccess(201, entity.toTareaDto())))
             }
 
             joinAll()
