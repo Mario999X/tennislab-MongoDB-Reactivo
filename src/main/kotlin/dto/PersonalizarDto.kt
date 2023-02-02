@@ -5,8 +5,6 @@ import models.Personalizar
 
 @Serializable
 data class PersonalizarDto(
-    val id: String,
-    val uuid: String,
     val informacionPersonalizacion: String,
     val precio: String
 ) {
@@ -15,8 +13,6 @@ data class PersonalizarDto(
 
 fun Personalizar.toPersonalizarDto(): PersonalizarDto {
     return PersonalizarDto(
-        id = id.toString(),
-        uuid = uuid.toString(),
         informacionPersonalizacion,
         precio = precio.toString()
     )
