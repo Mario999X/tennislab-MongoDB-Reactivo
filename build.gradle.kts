@@ -38,6 +38,8 @@ dependencies {
 
     // BCrypt
     implementation("com.ToxicBakery.library.bcrypt:bcrypt:1.0.9")
+
+    //Koin
     implementation("io.insert-koin:koin-core:3.2.2")
     implementation("io.insert-koin:koin-annotations:1.0.3")
     ksp("io.insert-koin:koin-ksp-compiler:1.0.3")

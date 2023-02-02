@@ -14,9 +14,7 @@ import service.cache.UsuariosCache
  * Repositorio de la caché, realiza operaciones CRUD básicas
  *@property UsuarioRepository
  */
-class UsuariosCacheRepositoryImpl(
-
-) : UsuarioRepository {
+class UsuariosCacheRepositoryImpl : UsuarioRepository {
 
     private val cacheUsuarios = UsuariosCache()
     private var refreshJob: Job? = null
