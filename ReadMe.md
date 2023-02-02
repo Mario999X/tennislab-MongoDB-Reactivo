@@ -18,9 +18,9 @@ Proyecto de gestión de base de datos de una tienda de raquetas para la asignatu
 - [Tests](#tests)
 - [Autores](#autores)
 
-## Diseño
+# Diseño
 
-# Introducción
+## Introducción
 
 Para la realización de este proyecto, se puso de requisito diseñarla usando MongoDB de manera reactiva.
 
@@ -29,13 +29,13 @@ problema.
 
 El primer paso fue el diseño del *diagrama de clases*, cuyo resultado final fue el siguiente:
 
-# Diagrama de clases
+## Diagrama de clases
 
 ![DiagramaClases](image/tennisLab-Reactivo.jpg)
 
 Las distintas relaciones se encuentran completamente explicadas y detalladas en la *documentación*.
 
-# Configuración del proyecto
+## Configuración del proyecto
 
 La configuración del proyecto se realizó utilizando [Gradle](https://gradle.org/); nos apoyamos en las siguientes
 tecnologías:
@@ -54,7 +54,7 @@ tecnologías:
 - [KDoc](https://kotlinlang.org/docs/kotlin-doc.html)
 - [JUnit5](https://junit.org/junit5/)
 
-# Configuración de la base de datos
+## Configuración de la base de datos
 
 Luego de proponer las distintas opciones de uso de MongoDB, acabamos
 eligiendo [MongoDB Atlas](https://www.mongodb.com/atlas/database), que nos permite conectarnos de manera rápida y
@@ -63,12 +63,12 @@ sencilla.
 La base de datos trabaja de forma reactiva, esto se puede ver en la clase *"MongoDbManager"* y en el uso de corrutinas y
 flujos a lo largo de la aplicación.
 
-## Estructura del proyecto
+# Estructura del proyecto
 
 Para mantener el proyecto ordenado, se opto por una estructuración de clases referenciando sus
 funciones, dando como resultado los distintos paquetes como: *"Models", "Repositories"...*
 
-# Documentación
+## Documentación
 
 Las clases se encuentran documentadas con KDoc, y hemos implantado **Dokka** para poder presentar una documentación en
 formato *HTML*.
@@ -118,11 +118,11 @@ Para ver los resultados de ejecución, ademas de la implementación de mensajes 
 página de *MongoDB Atlas*, o el plugin *MongoDB* de **Visual Studio Code** para visualizar
 los cambios sobre la base de datos.
 
-## Tests
+# Tests
 
 Hemos realizado los test tanto de **controladores** como de **repositorios**, haciendo uso de **Mockk** y **JUnit5**,
 además, son test que permiten la actuación de corrutinas.
 
-## Autores
+# Autores
 
 [Sebastián Mendoza](https://github.com/SebsMendoza) y [Mario Resa](https://github.com/Mario999X)
