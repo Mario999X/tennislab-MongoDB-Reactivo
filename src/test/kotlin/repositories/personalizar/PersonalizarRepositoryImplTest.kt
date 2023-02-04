@@ -11,6 +11,7 @@ import models.Personalizar
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 
 @ExtendWith(MockKExtension::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -50,7 +51,7 @@ internal class PersonalizarRepositoryImplTest {
         val res = personalizarRepository.findAll().toList()
 
         assertAll(
-            { kotlin.test.assertEquals(1, res.size) }
+            { assertEquals(1, res.size) }
         )
     }
 
@@ -63,6 +64,14 @@ internal class PersonalizarRepositoryImplTest {
         assertAll(
             { assertEquals(personalizar.informacionPersonalizacion, res!!.informacionPersonalizacion) }
         )
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        val res = personalizarRepository.findByID(newId())
+
+        assertNull(res)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

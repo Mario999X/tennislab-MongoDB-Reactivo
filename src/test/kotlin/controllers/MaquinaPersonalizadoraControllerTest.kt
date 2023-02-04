@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 import repositories.maquina.MaquinaPersonalizadoraRepository
 import java.time.LocalDate
 
@@ -87,6 +88,17 @@ internal class MaquinaPersonalizadoraControllerTest {
         )
 
         coVerify(exactly = 1) { personalizadoraRepository.findByID(personalizadora.id) }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        coEvery { personalizadoraRepository.findByID(any()) } returns null
+        val res = personalizadoraController.getPersonalizadoraById(newId())
+
+        assertNull(res)
+
+        coVerify(exactly = 2) { personalizadoraRepository.findByID(any()) }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

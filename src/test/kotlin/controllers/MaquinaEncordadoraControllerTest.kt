@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 import repositories.maquina.MaquinaEncordadoraRepository
 import java.time.LocalDate
 
@@ -86,6 +87,17 @@ internal class MaquinaEncordadoraControllerTest {
         )
 
         coVerify(exactly = 1) { encordadoraRepository.findByID(encordadora.id) }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        coEvery { encordadoraRepository.findByID(any()) } returns null
+        val res = encordadoraController.getEncordadoraById(newId())
+
+        assertNull(res)
+
+        coVerify(exactly = 2) { encordadoraRepository.findByID(any()) }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 import repositories.adquisicion.AdquisicionRepository
 
 @ExtendWith(MockKExtension::class)
@@ -89,6 +90,17 @@ internal class AdquisicionControllerTest {
         )
 
         coVerify(exactly = 1) { adquisicionRepository.findByID(adquisicion.id) }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        coEvery { adquisicionRepository.findByID(any()) } returns null
+        val res = adquisicionController.getAdquisicionById(newId())
+
+        assertNull(res)
+
+        coVerify(exactly = 1) { adquisicionRepository.findByID(any()) }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

@@ -88,6 +88,14 @@ internal class ProductosRepositoryImplTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
+    fun findByIdNotExists() = runTest {
+        val res = productosRepository.findByID(newId())
+
+        assertNull(res)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
     @Order(4)
     fun save() = runTest {
         val result = productosRepository.save(producto)
