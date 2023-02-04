@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 import repositories.pedido.PedidoRepository
 import utils.Cifrador
 import java.time.LocalDateTime
@@ -91,6 +92,17 @@ internal class PedidoControllerTest {
         )
 
         coVerify(exactly = 1) { pedidoRepository.findByID(pedido.id) }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        coEvery { pedidoRepository.findByID(any()) } returns null
+        val res = pedidoController.getPedidoById(newId())
+
+        assertNull(res)
+
+        coVerify(exactly = 1) { pedidoRepository.findByID(any()) }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

@@ -11,6 +11,7 @@ import models.*
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 import utils.Cifrador
 import java.time.LocalDateTime
 
@@ -61,7 +62,7 @@ internal class PedidoRepositoryImplTest {
         val res = pedidoRepository.findAll().toList()
 
         assertAll(
-            { kotlin.test.assertEquals(1, res.size) }
+            { assertEquals(1, res.size) }
         )
     }
 
@@ -74,6 +75,14 @@ internal class PedidoRepositoryImplTest {
         assertAll(
             { assertEquals(pedido.estadoPedido, res!!.estadoPedido) }
         )
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        val res = pedidoRepository.findByID(newId())
+
+        assertNull(res)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

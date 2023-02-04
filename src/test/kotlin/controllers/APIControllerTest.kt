@@ -204,6 +204,17 @@ internal class APIControllerTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
+    fun findByIdNotExists() = runTest {
+        coEvery { tareasKtorFitRepository.findByID(any()) } returns null
+        val res = apiController.getTareaById(newId())
+
+        assertNull(res)
+
+        coVerify(exactly = 2) { tareasKtorFitRepository.findByID(any()) }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
     fun deleteTarea() = runTest {
         coEvery { tareasKtorFitRepository.delete(tarea) } returns true
         val res = apiController.deleteTarea(tarea)

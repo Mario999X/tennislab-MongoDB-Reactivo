@@ -12,6 +12,7 @@ import models.Usuario
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 import utils.Cifrador
 import utils.TransformIDs
 
@@ -70,6 +71,14 @@ internal class UsuariosMongoRepositoryImplTest {
         assertAll(
             { assertEquals(usuario.email, res!!.email) }
         )
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        val res = usuariosMongoRepository.findByID(newId())
+
+        assertNull(res)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 import repositories.encordar.EncordarRepository
 
 @ExtendWith(MockKExtension::class)
@@ -81,6 +82,17 @@ internal class EncordarControllerTest {
         )
 
         coVerify(exactly = 1) { encordarRepository.findByID(encordado.id) }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        coEvery { encordarRepository.findByID(any()) } returns null
+        val res = encordarController.getEncordadoById(newId())
+
+        assertNull(res)
+
+        coVerify(exactly = 2) { encordarRepository.findByID(any()) }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

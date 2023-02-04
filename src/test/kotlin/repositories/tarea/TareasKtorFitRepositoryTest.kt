@@ -91,6 +91,14 @@ internal class TareasKtorFitRepositoryTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
+    fun findByIdNotExists() = runTest {
+        val res = tareasRepository.findByID(newId())
+
+        assertNull(res)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
     fun save() = runTest {
         val res = tareasRepository.save(tarea)
 

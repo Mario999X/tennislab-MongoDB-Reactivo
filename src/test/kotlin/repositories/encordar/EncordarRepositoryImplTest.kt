@@ -11,6 +11,7 @@ import models.Encordar
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 
 @ExtendWith(MockKExtension::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -50,7 +51,7 @@ internal class EncordarRepositoryImplTest {
         val res = encordarRepository.findAll().toList()
 
         assertAll(
-            { kotlin.test.assertEquals(1, res.size) }
+            { assertEquals(1, res.size) }
         )
     }
 
@@ -61,8 +62,16 @@ internal class EncordarRepositoryImplTest {
         val res = encordarRepository.findByID(find[0].id)
 
         assertAll(
-            { kotlin.test.assertEquals(encordado.precio, res!!.precio) }
+            { assertEquals(encordado.precio, res!!.precio) }
         )
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        val res = encordarRepository.findByID(newId())
+
+        assertNull(res)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -71,7 +80,7 @@ internal class EncordarRepositoryImplTest {
         val res = encordarRepository.save(encordado)
 
         assertAll(
-            { kotlin.test.assertEquals(encordado.precio, res.precio) }
+            { assertEquals(encordado.precio, res.precio) }
         )
     }
 
@@ -79,6 +88,6 @@ internal class EncordarRepositoryImplTest {
     @Test
     fun delete() = runTest {
         val res = encordarRepository.delete(encordado)
-        kotlin.test.assertTrue(res)
+        assertTrue(res)
     }
 }

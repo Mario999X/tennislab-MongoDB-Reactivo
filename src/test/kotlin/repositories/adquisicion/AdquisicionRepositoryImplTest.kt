@@ -12,7 +12,9 @@ import models.Producto
 import models.Tipo
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 @ExtendWith(MockKExtension::class)
@@ -72,6 +74,14 @@ internal class AdquisicionRepositoryImplTest {
         assertAll(
             { assertEquals(adquisicion.precio, res!!.precio) }
         )
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        val res = adquisicionRepository.findByID(newId())
+
+        assertNull(res)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

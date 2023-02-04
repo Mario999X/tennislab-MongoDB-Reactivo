@@ -14,6 +14,7 @@ import models.Tipo
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 import repositories.producto.ProductosRepository
 import service.ProductoService
 
@@ -85,6 +86,17 @@ internal class ProductoControllerTest {
         )
 
         coVerify(exactly = 1) { productosRepository.findByID(producto.id) }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        coEvery { productosRepository.findByID(any()) } returns null
+        val res = productoController.getProductoById(newId())
+
+        assertNull(res)
+
+        coVerify(exactly = 2) { productosRepository.findByID(any()) }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 import repositories.personalizar.PersonalizarRepository
 
 @ExtendWith(MockKExtension::class)
@@ -80,6 +81,17 @@ internal class PersonalizarControllerTest {
         )
 
         coVerify(exactly = 1) { personalizarRepository.findByID(personalizar.id) }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        coEvery { personalizarRepository.findByID(any()) } returns null
+        val res = personalizarController.getPersonalizacionById(newId())
+
+        assertNull(res)
+
+        coVerify(exactly = 2) { personalizarRepository.findByID(any()) }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

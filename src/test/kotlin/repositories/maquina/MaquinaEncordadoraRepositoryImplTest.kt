@@ -12,6 +12,7 @@ import org.junit.jupiter.api.*
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 import java.time.LocalDate
 
 @ExtendWith(MockKExtension::class)
@@ -70,6 +71,14 @@ internal class MaquinaEncordadoraRepositoryImplTest {
         assertAll(
             { assertEquals(encordadora.isManual, res!!.isManual) }
         )
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        val res = encordadoraRepository.findByID(newId())
+
+        assertNull(res)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

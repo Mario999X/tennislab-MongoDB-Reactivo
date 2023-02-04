@@ -11,6 +11,7 @@ import models.maquina.Personalizadora
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
+import org.litote.kmongo.newId
 import java.time.LocalDate
 
 @ExtendWith(MockKExtension::class)
@@ -56,7 +57,7 @@ internal class MaquinaPersonalizadoraRepositoryImplTest {
         val res = personalizadoraRepository.findAll().toList()
 
         assertAll(
-            { kotlin.test.assertEquals(1, res.size) }
+            { assertEquals(1, res.size) }
         )
     }
 
@@ -69,6 +70,14 @@ internal class MaquinaPersonalizadoraRepositoryImplTest {
         assertAll(
             { assertEquals(personalizadora.descripcion, res!!.descripcion) }
         )
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun findByIdNotExists() = runTest {
+        val res = personalizadoraRepository.findByID(newId())
+
+        assertNull(res)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
